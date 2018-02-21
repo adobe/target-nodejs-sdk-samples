@@ -22,7 +22,6 @@ const CONFIG = {
 };
 
 const logger = getLogger();
-const marketingCloudClient = createMarketingCloudClient(logger, CONFIG);
 const app = express();
 
 app.use(cookieParser());
@@ -81,6 +80,8 @@ app.get("/", function (req, res) {
   const request = Object.assign({customerIds}, {payload}, {visitorCookie}, {targetCookie});
 
   console.log("Request", request);
+
+  const marketingCloudClient = createMarketingCloudClient(logger, CONFIG);
 
   marketingCloudClient.getOffer(request)
   .then(offer => {
