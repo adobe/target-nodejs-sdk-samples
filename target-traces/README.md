@@ -17,4 +17,7 @@ If you are new to Target trace functionality please follow these steps to genera
 5. At the bottom of the page you should find Debugger Tools
 6. Click on the `Generate Authentication Token` button
 
-Once you have the trace token and the sample app is running to see everything in action you should open: http://localhost:3000?authorization=`your_trace_token`
+Once you have the trace token and the sample app is running to see everything in action you should open:
+[http://localhost:3000?authorization=your_trace_token](http://localhost:3000?authorization=your_trace_token)
+
+NOTE: make sure to replace `your_trace_token` with an actual value.
