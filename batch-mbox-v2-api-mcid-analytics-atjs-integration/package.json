@@ -1,7 +1,7 @@
 {
-  "name": "mcid-analytics-integration",
+  "name": "batch-mbox-v2-api-mcid-analytics-atjs-integration",
   "version": "0.1.0",
-  "description": "Adobe Marketing Cloud Client, mcid-analytics-integration sample",
+  "description": "Adobe Marketing Cloud Client, batch-mbox-v2-api-mcid-analytics-atjs-integration sample",
   "main": "lib/index.js",
   "scripts": {
     "www": "node server.js"
@@ -19,7 +19,7 @@
     "MCID",
     "Visitor",
     "Delivery",
-    "mcid-analytics-integration"
+    "batch-mbox-v2-api-mcid-analytics-atjs-integration"
   ],
   "author": {
     "name": "Adobe Marketing Cloud Client",

@@ -1,7 +1,7 @@
 {
-  "name": "mcid-integration",
+  "name": "mcid-analytics-atjs-integration",
   "version": "0.1.0",
-  "description": "Adobe Marketing Cloud Client, mcid-integration sample",
+  "description": "Adobe Marketing Cloud Client, mcid-analytics-atjs-integration sample",
   "main": "lib/index.js",
   "scripts": {
     "www": "node server.js"
@@ -19,7 +19,7 @@
     "MCID",
     "Visitor",
     "Delivery",
-    "mcid-integration"
+    "mcid-analytics-atjs-integration"
   ],
   "author": {
     "name": "Adobe Marketing Cloud Client",
@@ -27,7 +27,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@adobe/target-node-client": "^0.11.0",
+    "@adobe/target-node-client": "^0.14.0",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0"
   }
