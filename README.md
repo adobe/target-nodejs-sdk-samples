@@ -6,5 +6,7 @@ This repository contains samples that use Marketing Cloud Client. Here is the li
 - `mcid-customer-ids-integration` - shows how Marketing Cloud Client can be used in conjunction with MCID (Visitor API) and customer IDs. Customer IDs are useful in scenarios when user is logged in.
 - `mcid-analytics-integration` - shows how Marketing Cloud Client can be used in conjunction with MCID (Visitor API) and Adobe Analytics.
 - `mcid-analytics-atjs-integration` - shows how Marketing Cloud Client can be used in conjunction with MCID (Visitor API), Adobe Analytics and at.js. This sample shows how you can execute "hybrid" tests, when the test is started on the server side and then it is handed off to at.js on the client side.
+- `target-traces` - shows how Marketing Cloud Client can be used to retrieve Target execution traces.
+- `batch-mbox-v2-api-mcid-analytics-atjs-integration` - shows how Marketing Cloud Client can be used to execute Batch Mbox v2 API requests.
 
 For more documentation please check: https://www.npmjs.com/package/@adobe/target-node-client.
