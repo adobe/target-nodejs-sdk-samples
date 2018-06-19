@@ -1,4 +1,4 @@
-# MCID and Analytics and at.js integration sample
+# Batch Mbox v2 API and MCID and Analytics and at.js integration sample
 
 ## Usage
 1. `npm install`
