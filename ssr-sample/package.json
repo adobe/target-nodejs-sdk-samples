@@ -1,0 +1,29 @@
+{
+  "name": "target-nodejs-ssr-sample",
+  "version": "1.0.0",
+  "description": "Adobe Target NodeJS SDK SSR sample",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Adobe-Marketing-Cloud/target-node-client-samples/ssr-sample"
+  },
+  "author": "Adobe Systems Inc.",
+  "license": "Adobe-2006",
+  "browser": {
+    "@adobe/target-node-client": false
+  },
+  "dependencies": {
+    "@adobe/target-node-client": "^1.0.0",
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "^9.0.0",
+    "nookies": "^2.0.8",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  }
+}
