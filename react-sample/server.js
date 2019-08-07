@@ -93,19 +93,17 @@ function setTraceToken(trace = {}, req) {
   return Object.assign({}, trace, { authorizationToken });
 }
 
-function processTargetRequest(request, req, res) {
+async function processTargetRequest(request, req, res) {
   request.trace = setTraceToken(request.trace, req);
   const options = Object.assign({ request }, getCommonTargetOptions(req));
 
-  targetClient
-    .getOffers(options)
-    .then(resp => {
-      sendResponse(res, resp);
-    })
-    .catch(error => {
-      console.error("AT: ", error);
-      sendErrorResponse(res);
-    });
+  try {
+    const resp = await targetClient.getOffers(options);
+    sendResponse(res, resp);
+  } catch (e) {
+    console.error("AT: ", e);
+    sendErrorResponse(res);
+  }
 }
 
 app.get("/", (req, res) => {
