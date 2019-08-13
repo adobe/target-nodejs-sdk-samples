@@ -1,5 +1,5 @@
 /***************************************************************************************
- * (c) 2017 Adobe. All rights reserved.
+ * (c) 2019 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You may obtain a copy
  * of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,32 +13,18 @@
 const fs = require("fs");
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const MarketingCloudClient = require("@adobe/target-node-client");
-const TEMPLATE = fs.readFileSync(__dirname + "/templates/index.tpl").toString();
+const TargetNodeClient = require("./tmp-node-client/index");
 const CONFIG = {
   client: "adobetargetmobile",
   organizationId: "B8A054D958807F770A495DD6@AdobeOrg",
-  timeout: 10000
+  timeout: 10000,
+  logger: console
 };
+const targetClient = TargetNodeClient.create(CONFIG);
+const TEMPLATE = fs.readFileSync(__dirname + "/templates/index.tpl").toString();
 
-const logger = getLogger();
 const app = express();
-
 app.use(cookieParser());
-
-function getLogger() {
-  return {
-    log: function(...arr) {
-      console.log(...arr);
-    }
-  };
-}
-
-function createMarketingCloudClient(logger, config) {
-  const options = Object.assign({logger}, {config});
-
-  return MarketingCloudClient.create(options);
-}
 
 function saveCookie(res, cookie) {
   if (!cookie) {
@@ -48,36 +34,49 @@ function saveCookie(res, cookie) {
   res.cookie(cookie.name, cookie.value, {maxAge: cookie.maxAge * 1000});
 }
 
+const getResponseHeaders = () => ({
+  "Content-Type": "text/html",
+  "Expires": new Date().toUTCString()
+});
+
 function sendHtml(res, offer) {
-  const result = TEMPLATE.replace("${content}", JSON.stringify(offer, null, ' '));
+  const htmlResponse = TEMPLATE.replace("${content}", JSON.stringify(offer, null, ' '));
 
-  res.status(200).send(result);
+  res.status(200).send(htmlResponse);
 }
 
-function sendResponse(res, offer) {
-  res.set({"Content-Type": "text/html"});
-
-  saveCookie(res, offer.targetCookie);
-  sendHtml(res, offer);
+function sendSuccessResponse(res, response) {
+  res.set(getResponseHeaders());
+  saveCookie(res, response.targetCookie);
+  sendHtml(res, response);
 }
 
-app.get("/", function (req, res) {
-  const targetCookieName = encodeURIComponent(MarketingCloudClient.getTargetCookieName());
-  const targetCookie = req.cookies[targetCookieName];
-  const payload = {"mbox" : "a1-serverside-ab"};
-  const request = Object.assign({payload}, {targetCookie});
+function sendErrorResponse(res, error) {
+  res.set(getResponseHeaders());
+  res.status(500).send(error);
+}
 
-  console.log("Request", request);
+function getAddress(req) {
+  return { url: req.headers.host + req.originalUrl }
+}
 
-  const marketingCloudClient = createMarketingCloudClient(logger, CONFIG);
+app.get("/", async (req, res) => {
+  const targetCookie = req.cookies[TargetNodeClient.TargetCookieName];
+  const request = {
+    execute: {
+      mboxes: [{
+        address: getAddress(req),
+        name: "a1-serverside-ab"
+      }]
+    }};
 
-  marketingCloudClient.getOffer(request)
-  .then(offer => {
-    sendResponse(res, offer);
-  })
-  .catch(error => {
-    sendResponse(res, error);
-  });
+  try {
+    const response = await targetClient.getOffers({ request, targetCookie });
+    sendSuccessResponse(res, response);
+  } catch (error) {
+    console.error("Target:", error);
+    sendErrorResponse(res, error);
+  }
 });
 
 app.listen(3000, function () {

@@ -1,10 +1,10 @@
 {
   "name": "target-only",
-  "version": "0.1.0",
-  "description": "Adobe Marketing Cloud Client, target-only sample",
-  "main": "lib/index.js",
+  "version": "1.0.0",
+  "description": "Adobe Target Node Client, target-only sample",
+  "main": "server.js",
   "scripts": {
-    "www": "node server.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -21,14 +21,13 @@
     "Delivery",
     "target-only"
   ],
-  "author": {
-    "name": "Adobe Marketing Cloud Client",
-    "email": "ciocanu@adobe.com"
-  },
+  "author": "Adobe Systems Inc.",
   "license": "Apache-2.0",
   "dependencies": {
-    "@adobe/target-node-client": "^0.15.0",
-    "cookie-parser": "^1.4.3",
-    "express": "^4.14.0"
-  }
+    "@adobe-mcid/visitor-js-server": "^2.0.0",
+    "@adobe/target-delivery-api-node-client": "^1.0.2",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {}
 }
