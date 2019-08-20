@@ -1,4 +1,6 @@
-# react-demo
-Hypothetical online e-commerce site implemented in React
+# Target React shopping cart sample
 
-Live demo: http://developers.adobetarget.com/react-demo/public/#/
+## Usage
+1. Install dependencies: `npm i`
+2. Dev build: `npm run dev && npm start`
+3. Prod build: `npm run build && npm start`

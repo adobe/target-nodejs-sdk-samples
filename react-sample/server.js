@@ -1,7 +1,8 @@
 const fs = require("fs");
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const TargetNodeClient = require("@adobe/target-node-client");
+// const TargetNodeClient = require("@adobe/target-node-client");
+const TargetNodeClient = require("./tmp-node-client/index"); // Temp fix until NodeJS SDK is public
 
 const TEMPLATE = fs.readFileSync(`${__dirname}/index.tpl`).toString();
 const CONFIG = require("./config.json");

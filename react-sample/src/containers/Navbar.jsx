@@ -39,14 +39,10 @@ class NavBar extends Component {
     });
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { dispatch } = this.props;
     dispatch(fetchCart());
     dispatch(fetchWishlist())
-  }
-
-  componentDidUpdate() {
-
   }
 
   toggleNavBar() {

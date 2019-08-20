@@ -9,11 +9,6 @@ import { withRouter } from 'react-router'
  * Create App Component
  */
 class App extends Component {
-
-  componentWillMount() {
-
-  }
-
   render() {
     return (
       <div className="app-container">
