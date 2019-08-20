@@ -1,5 +1,6 @@
 import { parseCookies, setCookie } from "nookies";
-import TargetNodeClient from "@adobe/target-node-client";
+// import TargetNodeClient from "@adobe/target-node-client";
+import TargetNodeClient from "../tmp-node-client/index"; // Temp fix until NodeJS SDK is public
 import CONFIG from "./target-config.json";
 
 const targetOptions = Object.assign({ logger: console }, CONFIG);
@@ -89,7 +90,7 @@ function targetInit(props) {
     imsOrgId: "${props.target.organizationId}",
     serverDomain: "${props.target.serverDomain}",
     serverState: ${JSON.stringify(props.target.serverState || {}, null, " ")}
-  });`;
+  };`;
 }
 
 function analyticsBeacon() {

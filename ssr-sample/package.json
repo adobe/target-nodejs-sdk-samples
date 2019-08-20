@@ -19,7 +19,8 @@
     "@adobe/target-node-client": false
   },
   "dependencies": {
-    "@adobe/target-node-client": "^1.0.0",
+    "@adobe-mcid/visitor-js-server": "^2.0.0",
+    "@adobe/target-delivery-api-node-client": "^1.0.2",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^9.0.0",
     "nookies": "^2.0.8",

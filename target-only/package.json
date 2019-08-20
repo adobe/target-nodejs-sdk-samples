@@ -22,7 +22,7 @@
     "target-only"
   ],
   "author": "Adobe Systems Inc.",
-  "license": "Apache-2.0",
+  "license": "Adobe-2006",
   "dependencies": {
     "@adobe-mcid/visitor-js-server": "^2.0.0",
     "@adobe/target-delivery-api-node-client": "^1.0.2",
