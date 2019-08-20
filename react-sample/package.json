@@ -10,10 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Adobe-Marketing-Cloud/target-node-client-samples/react-sample"
+    "url": "git@github.com:Adobe-Marketing-Cloud/target-node-client-samples.git"
   },
   "author": "Adobe Systems Inc.",
-  "license": "Adobe-2006",
+  "license": "Apache-2.0",
   "dependencies": {
     "@adobe-mcid/visitor-js-server": "^2.0.0",
     "@adobe/target-delivery-api-node-client": "^1.0.2",

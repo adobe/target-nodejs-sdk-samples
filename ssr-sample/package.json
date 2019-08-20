@@ -11,10 +11,10 @@
   "keywords": [],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Adobe-Marketing-Cloud/target-node-client-samples/ssr-sample"
+    "url": "git@github.com:Adobe-Marketing-Cloud/target-node-client-samples.git"
   },
   "author": "Adobe Systems Inc.",
-  "license": "Adobe-2006",
+  "license": "Apache-2.0",
   "browser": {
     "@adobe/target-node-client": false
   },

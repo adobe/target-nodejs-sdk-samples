@@ -1,7 +1,7 @@
 {
-  "name": "target-only",
+  "name": "ecid-integration",
   "version": "1.0.0",
-  "description": "Adobe Target Node Client, target-only sample",
+  "description": "Adobe Target Node Client, ecid-integration sample",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -20,7 +20,7 @@
     "ECID",
     "Visitor",
     "Delivery",
-    "target-only"
+    "ecid-integration"
   ],
   "author": "Adobe Systems Inc.",
   "license": "Apache-2.0",
@@ -29,6 +29,5 @@
     "@adobe/target-delivery-api-node-client": "^1.0.2",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1"
-  },
-  "devDependencies": {}
+  }
 }
