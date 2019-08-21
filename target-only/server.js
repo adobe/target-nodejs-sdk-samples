@@ -13,7 +13,8 @@
 const fs = require("fs");
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const TargetNodeClient = require("./tmp-node-client/index");
+// const TargetNodeClient = require("@adobe/target-node-client");
+const TargetNodeClient = require("./tmp-node-client/index"); // Temp fix until NodeJS SDK is public
 const CONFIG = {
   client: "adobetargetmobile",
   organizationId: "B8A054D958807F770A495DD6@AdobeOrg",
