@@ -17,3 +17,6 @@ Target client SDK API methods, as it's only required for internal Visitor instan
 
 In the provided sample the two Target calls are executed concurrently.  
 Note the use of distinct `consumerIds` in each call, for proper subsequent stitching with Analytics.
+
+Also note that a single `getOffers()` call with multiple mboxes/views should generally be preferred over multiple
+`getOffers()` calls with a shared Visitor instance.
