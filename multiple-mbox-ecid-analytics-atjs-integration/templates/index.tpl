@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Batch Mbox V2 API and MCID (Visitor API) with Analytics and at.js Integration Sample</title>
+  <title>Multiple Mbox ECID (Visitor API) with Analytics and at.js Integration Sample</title>
   <script src="VisitorAPI.js"></script>
   <script>
     Visitor.getInstance("${organizationId}", {serverState: ${visitorState}});
