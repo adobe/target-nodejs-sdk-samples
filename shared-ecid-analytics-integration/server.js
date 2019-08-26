@@ -14,6 +14,7 @@ const fs = require("fs");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const Visitor = require("@adobe-mcid/visitor-js-server");
+const uuidv4 = require("uuid/v4");
 // const TargetNodeClient = require("@adobe/target-node-client");
 const TargetNodeClient = require("./tmp-node-client/index"); // Temp fix until NodeJS SDK is public
 const CONFIG = {
@@ -69,7 +70,7 @@ function getAddress(req) {
 app.get("/", async (req, res) => {
   const visitorCookie = req.cookies[TargetNodeClient.getVisitorCookieName(CONFIG.organizationId)];
   const visitor = new Visitor(CONFIG.organizationId, visitorCookie);
-  targetClient.setVisitor(visitor);
+  const sessionId = uuidv4();
 
   const targetCookie = req.cookies[TargetNodeClient.TargetCookieName];
   const firstRequest = {
@@ -92,8 +93,20 @@ app.get("/", async (req, res) => {
   };
 
   try {
-    const firstTargetRequest = targetClient.getOffers({ request: firstRequest, targetCookie, consumerId: "first" });
-    const secondTargetRequest = targetClient.getOffers({ request: secondRequest, targetCookie, consumerId: "second" });
+    const firstTargetRequest = targetClient.getOffers({
+      request: firstRequest,
+      targetCookie,
+      sessionId,
+      visitor,
+      consumerId: "first"
+    });
+    const secondTargetRequest = targetClient.getOffers({
+      request: secondRequest,
+      targetCookie,
+      sessionId,
+      visitor,
+      consumerId: "second"
+    });
     const firstResponse = await firstTargetRequest;
     const secondResponse = await secondTargetRequest;
     const response = {
