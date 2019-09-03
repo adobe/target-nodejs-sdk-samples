@@ -1,10 +1,5 @@
 # Shared ECID and Analytics integration sample
 
-## Usage
-1. Install dependencies: `npm i`
-2. Start: `npm start`
-
-## Overview
 This sample demonstrates the use-case of sharing of a common ECID Visitor instance across several 
 Target client SDK `getOffers` calls.
 
@@ -20,3 +15,8 @@ Note the use of distinct `consumerIds` in each call, for proper subsequent stitc
 
 Also note that a single `getOffers()` call with multiple mboxes/views should generally be preferred over multiple
 `getOffers()` calls with a shared Visitor instance.
+
+## Usage
+1. Install dependencies: `npm i`
+2. Start: `npm start`
+

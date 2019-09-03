@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>MCID (Visitor API) with Analytics and at.js Integration Sample</title>
+  <title>ECID (Visitor API) with Analytics and at.js Integration Sample</title>
   <script src="VisitorAPI.js"></script>
   <script>
     Visitor.getInstance("${organizationId}", {serverState: ${visitorState}});
