@@ -18,7 +18,6 @@
   </script>
   <script>
     window.targetGlobalSettings = {
-      selectorsPollingTimeout: 60000,
       overrideMboxEdgeServer: true,
       clientCode: "${clientCode}",
       imsOrgId: "${organizationId}",

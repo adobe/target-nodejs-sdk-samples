@@ -8,7 +8,7 @@ const TEMPLATE = fs.readFileSync(`${__dirname}/index.tpl`).toString();
 const CONFIG = require("./config.json");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 const targetOptions = Object.assign({ logger: console }, CONFIG);
 const targetClient = TargetNodeClient.create(targetOptions);

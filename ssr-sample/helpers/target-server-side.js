@@ -86,6 +86,7 @@ function visitorInit(props) {
 
 function targetInit(props) {
   return `window.targetGlobalSettings = {
+    overrideMboxEdgeServer: true,
     clientCode: "${props.target.client}",
     imsOrgId: "${props.target.organizationId}",
     serverDomain: "${props.target.serverDomain}",

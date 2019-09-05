@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p 4445",
+    "start-prod": "next build && next start -p $PORT"
   },
   "keywords": [],
   "repository": {
