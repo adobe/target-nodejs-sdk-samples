@@ -1,15 +1,15 @@
 # Target Node.js Client Samples & Demos
 
-This repository contains samples and demos for the Target Node.js Client
+This repository contains samples and demos for the [Target Node.js Client](https://www.npmjs.com/package/@adobe/target-node-client)
 
 ## Demos
 
 - [react-shopping-cart-demo](react-shopping-cart-demo) - a demo showing how to fetch and inject Target offers in a
 [React Redux](https://react-redux.js.org/) app on the server side and then instantly apply the offers on the client side,
-without any additional client-side Target calls
+without any additional client-side Target calls. Check out the [Live Demo](http://target-nodejs-react-sample.eu-west-1.elasticbeanstalk.com).
 - [next-server-side-rendering-demo](next-server-side-rendering-demo) - a demo showing how to fetch and inject Target offers 
 in a [Next.js](https://nextjs.org/) server-side rendered app, and then instantly apply the offers on the client side,
-without any additional client-side Target calls
+without any additional client-side Target calls. Check out the [Live Demo](http://target-nodejs-ssr-sample.eu-west-1.elasticbeanstalk.com).
 
 ## Samples
 
@@ -28,4 +28,4 @@ Node.js Client API calls when processing a client request, sharing the same ECID
 - [multiple-mbox-ecid-analytics-atjs-integration](multiple-mbox-ecid-analytics-atjs-integration) - shows how Target 
 Node.js Client can be used to request content for multiple mboxes in the same Target call.
 
-For Target Node.js Client documentation, see [Target Node.js Client documentation](https://www.npmjs.com/package/@adobe/target-node-client)
+For Target Node.js Client documentation, see [Target Node.js Client NPM page](https://www.npmjs.com/package/@adobe/target-node-client).
