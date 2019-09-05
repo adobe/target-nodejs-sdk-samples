@@ -85,35 +85,59 @@ function sendErrorHtml(res) {
 }
 
 /**
- *
- * @param res response object returned to the client
+ * Return the headers to be set on the response object.
+ * Note that Expires header is set to current Date, so the browser will always reload the page from the server
+ * @returns {Object} response headers
+ */
+const getResponseHeaders = () => ({
+  "Content-Type": "text/html",
+  "Expires": new Date().toUTCString()
+});
+
+/**
+ * Sets headers and target cookies on the response, and sends the page with injected Target data back to the client
+ * @param res response object to be returned to the client
  * @param targetResponse response received from Target Delivery API
  */
 function sendResponse(res, targetResponse) {
-  res.set({ "Content-Type": "text/html" });
+  res.set(getResponseHeaders());
 
   saveCookie(res, targetResponse.targetCookie);
   saveCookie(res, targetResponse.targetLocationHintCookie);
   sendHtml(res, targetResponse);
 }
 
+/**
+ * Sets response headers and returns the page to the client, in case there was an error with fetching Target offers
+ * @param res response object to be returned to the client
+ */
 function sendErrorResponse(res) {
-  res.set({ "Content-Type": "text/html" });
+  res.set(getResponseHeaders());
 
   sendErrorHtml(res);
 }
 
-function getCommonTargetOptions(req) {
+/**
+ * Extract the Visitor, Target session and location hint cookies from the client request
+ * and return these as Target Node Client options
+ * @param req client request object
+ * @returns {Object} Target and Visitor cookies as Target Node Client options map
+ */
+function getTargetCookieOptions(req) {
   return {
-    targetCookie:
-      req.cookies[encodeURIComponent(TargetNodeClient.TargetCookieName)],
-    targetLocationHintCookie:
-      req.cookies[
-        encodeURIComponent(TargetNodeClient.TargetLocationHintCookieName)
-      ]
+    visitorCookie: req.cookies[TargetNodeClient.getVisitorCookieName(CONFIG.organizationId)],
+    targetCookie: req.cookies[TargetNodeClient.TargetCookieName],
+    targetLocationHintCookie: req.cookies[TargetNodeClient.TargetLocationHintCookieName]
   };
 }
 
+/**
+ * If a Target Trace token was sent in the "authorization" client request query parameter, then we also set it
+ * in the Target request
+ * @param trace Target Delivery API request trace object
+ * @param req client request object
+ * @returns {Object} Target Delivery API request with the Trace token set from the original request query parameter
+ */
 function setTraceToken(trace = {}, req) {
   const { authorizationToken = req.query.authorization } = trace;
 
@@ -124,31 +148,56 @@ function setTraceToken(trace = {}, req) {
   return Object.assign({}, trace, { authorizationToken });
 }
 
-async function processTargetRequest(request, req, res) {
+/**
+ * Call the Target Node Client getOffers API asynchronously and send the response with Target offers back to the client
+ * @param request Target Delivery API request
+ * @param req client request object
+ * @param res client response object
+ */
+async function processRequestWithTarget(request, req, res) {
+  // Set the trace data on the Delivery API request object, if available
   request.trace = setTraceToken(request.trace, req);
-  const options = Object.assign({ request }, getCommonTargetOptions(req));
+  // Build Target Node Client API getOffers options
+  const options = Object.assign({ request }, getTargetCookieOptions(req));
 
   try {
+    // Call Target Node Client getOffers asynchronously
     const resp = await targetClient.getOffers(options);
+    // Send back the response with Target offers, getOffers call completes successfully
     sendResponse(res, resp);
   } catch (e) {
-    console.error("AT: ", e);
+    // Alternatively, log the error and send the page without Target data
+    console.error("AT error: ", e);
     sendErrorResponse(res);
   }
 }
 
+/**
+ * Returns the Target request address, extracted from client request URL
+ * @param req client request object
+ * @returns {{url: *}} Target request address
+ */
+function getAddress(req) {
+  return { url: req.headers.host + req.originalUrl }
+}
+
+// Setup the root route Express app request handler for GET requests
 app.get("/", (req, res) => {
+  // Build the Delivery API View Prefetch request
   const prefetchViewsRequest = {
     prefetch: {
-      views: [{ address: { url: req.headers.host + req.originalUrl } }]
+      views: [{ address: getAddress(req) }]
     }
   };
 
-  processTargetRequest(prefetchViewsRequest, req, res);
+  // Process the request by calling Target Node Client API
+  processRequestWithTarget(prefetchViewsRequest, req, res);
 });
 
+// Startup the Express server listener
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}...`));
 
+// Stop the server on any app warnings
 process.on("warning", e => {
   console.warn("Node application warning", e);
   process.exit(-1);
