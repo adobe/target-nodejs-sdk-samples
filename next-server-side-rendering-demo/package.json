@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@adobe-mcid/visitor-js-server": "^2.0.0",
-    "@adobe/target-delivery-api-node-client": "^1.0.2",
+    "request": "^2.81.0",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^9.0.0",
     "nookies": "^2.0.8",
