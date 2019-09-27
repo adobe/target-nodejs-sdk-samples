@@ -1,10 +1,10 @@
 import { parseCookies, setCookie } from "nookies";
-// import TargetNodeClient from "@adobe/target-node-client";
-import TargetNodeClient from "../tmp-node-client/index"; // Temp fix until NodeJS SDK is public
+// import TargetClient from "@adobe/target-nodejs-sdk";
+import TargetClient from "../tmp-node-client/index"; // Temp fix until NodeJS SDK is public
 import CONFIG from "./target-config.json";
 
 const targetOptions = Object.assign({ logger: console }, CONFIG);
-const targetClient = TargetNodeClient.create(targetOptions);
+const targetClient = TargetClient.create(targetOptions);
 
 function saveCookie(ctx, cookie) {
   if (!cookie) {
@@ -19,10 +19,10 @@ function getTargetOptions(ctx) {
 
   return {
     targetCookie:
-      cookies[encodeURIComponent(TargetNodeClient.TargetCookieName)],
+      cookies[encodeURIComponent(TargetClient.TargetCookieName)],
     targetLocationHintCookie:
       cookies[
-        encodeURIComponent(TargetNodeClient.TargetLocationHintCookieName)
+        encodeURIComponent(TargetClient.TargetLocationHintCookieName)
       ]
   };
 }

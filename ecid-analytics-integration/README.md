@@ -1,6 +1,6 @@
 # ECID and Analytics integration sample
 
-To get the most out of the Target Node Client and to use the powerful analytics capabilities provided by Adobe Analytics,
+To get the most out of the Target Node.js SDK and to use the powerful analytics capabilities provided by Adobe Analytics,
  you can use the Target, ECID and Analytics combo. 
 
 Using MCID, Analytics, and Target lets you:

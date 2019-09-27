@@ -17,7 +17,7 @@
   "author": "Adobe Systems Inc.",
   "license": "Apache-2.0",
   "browser": {
-    "@adobe/target-node-client": false
+    "@adobe/target-nodejs-sdk": false
   },
   "dependencies": {
     "@adobe-mcid/visitor-js-server": "^2.0.0",

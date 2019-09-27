@@ -2,15 +2,15 @@
 
 ## Overview
 
-A React/Redux shopping cart sample using the full potential Target Node Client SDK by prefetching the content for React app views on the server-side and injecting these in the content returned on first page load, thus enabling instant application of Target offers on the client side, without any additional Target calls initiated by Target client at.js library. 
+A React/Redux shopping cart sample using the full potential Target Node.js SDK by prefetching the content for React app views on the server-side and injecting these in the content returned on first page load, thus enabling instant application of Target offers on the client side, without any additional Target calls initiated by Target client at.js library. 
 
 ## How it works
 
 Target `serverState` is a new feature available in at.js 2.x, that allows at.js to apply Target offers directly from content fetched on the server side and returned to the client as part of the page being served.
 
-In order to use this feature with Target Node Client, we just have to set `window.targetGlobalSettings.serverState` object in the returned page, from Target Delivery API request and response objects available after a successfull `getOffers()` API call.
+In order to use this feature with Target Node.js SDK, we just have to set `window.targetGlobalSettings.serverState` object in the returned page, from Target Delivery API request and response objects available after a successfull `getOffers()` API call.
 
-So, in our Node app serving the React SPA, we first perform a `getOffers()` Target Node Client API call, in order to prefetch Target content for all app views:
+So, in our Node app serving the React SPA, we first perform a `getOffers()` Target Node.js SDK API call, in order to prefetch Target content for all app views:
 
 ```js
 // Build the Delivery API View Prefetch request
@@ -19,9 +19,9 @@ const prefetchViewsRequest = {
         views: [{ address: getAddress(req) }]
     }
 };
-// Build Target Node Client API getOffers options
+// Build Target Node.js SDK API getOffers options
 const options = Object.assign({ request }, getTargetCookieOptions(req));
-// Call Target Node Client getOffers asynchronously
+// Call Target Node.js SDK getOffers asynchronously
 const targetResponse = await targetClient.getOffers(options);
 ```
 
@@ -54,7 +54,7 @@ If you're already a Target client, try it out in your Experience Cloud Organizat
 1. Modify `client`, `organizationId` and `serverDomain` settings in `config.json` with the approprate values for your Target account.
 2. Start the Node server on localhost: `npm run build && npm start`. By default, the server starts listening on `http://localhost:4444`, however the port can be customized in NPM scripts inside `package.json`.
 3. Login to your Adobe Experience Cloud account, and open the Target UI. Create a new `A/B Test` activity and indicate `http://localhost:4444` as the `Activity URL`.
-4. You can now experiment with authoring different experiences and seeing how these are delivered via Target Node Client and applied by at.js using Target serverState.
+4. You can now experiment with authoring different experiences and seeing how these are delivered via Target Node.js SDK and applied by at.js using Target serverState.
 
 ## Live demo
 

@@ -1,7 +1,7 @@
 {
   "name": "ecid-analytics-atjs-integration",
   "version": "1.0.0",
-  "description": "Adobe Target Node Client, ecid-analytics-atjs-integration sample",
+  "description": "Adobe Target Node.js SDK, ecid-analytics-atjs-integration sample",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

@@ -5,7 +5,7 @@
 2. Start: `npm start`
 
 ## How it works
-Target Node Client allows you to send a trace token that will be used by Target edge to generate execution traces.
+Target Node.js SDK allows you to send a trace token that will be used by Target edge to generate execution traces.
 These traces can then be exposed in the page context, so Chrome extensions or other tools could display trace details.
 
 The current sample looks for trace token in a query string parameter named `authorization` and the trace data is 

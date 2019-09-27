@@ -1,7 +1,7 @@
 {
   "name": "shared-ecid-analytics-integration",
   "version": "1.0.0",
-  "description": "Adobe Target Node Client, shared-ecid-analytics-integration sample",
+  "description": "Adobe Target Node.js SDK, shared-ecid-analytics-integration sample",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

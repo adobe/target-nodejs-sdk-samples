@@ -13,15 +13,15 @@
 const fs = require("fs");
 const express = require("express");
 const cookieParser = require("cookie-parser");
-// const TargetNodeClient = require("@adobe/target-node-client");
-const TargetNodeClient = require("./tmp-node-client/index"); // Temp fix until NodeJS SDK is public
+// const TargetClient = require("@adobe/target-nodejs-sdk");
+const TargetClient = require("./tmp-node-client/index"); // Temp fix until NodeJS SDK is public
 const CONFIG = {
   client: "adobetargetmobile",
   organizationId: "B8A054D958807F770A495DD6@AdobeOrg",
   timeout: 10000,
   logger: console
 };
-const targetClient = TargetNodeClient.create(CONFIG);
+const targetClient = TargetClient.create(CONFIG);
 const TEMPLATE = fs.readFileSync(__dirname + "/templates/index.tpl").toString();
 
 const app = express();
@@ -64,7 +64,7 @@ function getAddress(req) {
 }
 
 app.get("/", async (req, res) => {
-  const targetCookie = req.cookies[TargetNodeClient.TargetCookieName];
+  const targetCookie = req.cookies[TargetClient.TargetCookieName];
   const request = {
     trace: {
       authorizationToken: req.query.authorization

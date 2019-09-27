@@ -1,7 +1,7 @@
 {
   "name": "advanced-atjs-integration-serverstate",
   "version": "1.0.0",
-  "description": "Adobe Target Node Client, advanced-atjs-integration-serverstate sample",
+  "description": "Adobe Target Node.js SDK, advanced-atjs-integration-serverstate sample",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

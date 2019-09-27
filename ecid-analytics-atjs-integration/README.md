@@ -1,6 +1,6 @@
 # ECID, Analytics and at.js integration sample
 
-Most of the time Target Node Client will be used in a NodeJS application, such as `Express`, `Hapi`, `Koa`, etc.
+Most of the time Target Node.js SDK will be used in a NodeJS application, such as `Express`, `Hapi`, `Koa`, etc.
 However, with the recent proliferation of SPA frameworks that allow server-side rendering (such as Facebook React, 
 Next.js or Angular), there are use cases where server-side code should work in tandem with client-side libraries.
 In Target's case the client-side library is `at.js`.  

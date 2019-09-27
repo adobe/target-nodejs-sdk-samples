@@ -1,7 +1,7 @@
 {
   "name": "ecid-integration",
   "version": "1.0.0",
-  "description": "Adobe Target Node Client, ecid-integration sample",
+  "description": "Adobe Target Node.js SDK, ecid-integration sample",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

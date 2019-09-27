@@ -7,10 +7,10 @@ Also, in this case at.js will be able to prehide only the specific DOM elements 
 
 Target `serverState` is a new feature available in at.js 2.x, that allows at.js to apply Target offers directly from content fetched on the server side and returned to the client as part of the page being served.
 
-In order to use this feature with Target Node Client we just have to set `window.targetGlobalSettings.serverState` object in the returned page, from Target Delivery API request and response objects available after a successfull `getOffers()` API call, as follows:
+In order to use this feature with Target Node.js SDK we just have to set `window.targetGlobalSettings.serverState` object in the returned page, from Target Delivery API request and response objects available after a successfull `getOffers()` API call, as follows:
 
 ```js
-// First, we fetch the offers via Target Node Client API, as usual
+// First, we fetch the offers via Target Node.js SDK API, as usual
 const targetResponse = await targetClient.getOffers(options);
 // A successfull response will contain Target Delivery API request and response objects, which we need to set as serverState
 const serverState = {

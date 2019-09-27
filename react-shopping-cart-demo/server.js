@@ -2,8 +2,8 @@ const fs = require("fs");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 // Load the Target NodeJS SDK library
-// const TargetNodeClient = require("@adobe/target-node-client");
-const TargetNodeClient = require("./tmp-node-client/index"); // Temp fix until NodeJS SDK is public
+// const TargetClient = require("@adobe/target-nodejs-sdk");
+const TargetClient = require("./tmp-node-client/index"); // Temp fix until NodeJS SDK is public
 // Load the Target configuration (replace with configurations specific to your Adobe Client & Org)
 const CONFIG = require("./config.json");
 // Load the template of the HTML page returned in the response
@@ -13,10 +13,10 @@ const TEMPLATE = fs.readFileSync(`${__dirname}/index.tpl`).toString();
 const app = express();
 const PORT = process.env.PORT;
 
-// Enable TargetNodeClient logging via the console logger
+// Enable TargetClient logging via the console logger
 const targetOptions = Object.assign({ logger: console }, CONFIG);
-// Create the TargetNodeClient global instance
-const targetClient = TargetNodeClient.create(targetOptions);
+// Create the TargetClient global instance
+const targetClient = TargetClient.create(targetOptions);
 
 // Setup cookie parsing middleware and static file serving from the /public directory
 app.use(cookieParser());
@@ -125,9 +125,9 @@ function sendErrorResponse(res) {
  */
 function getTargetCookieOptions(req) {
   return {
-    visitorCookie: req.cookies[TargetNodeClient.getVisitorCookieName(CONFIG.organizationId)],
-    targetCookie: req.cookies[TargetNodeClient.TargetCookieName],
-    targetLocationHintCookie: req.cookies[TargetNodeClient.TargetLocationHintCookieName]
+    visitorCookie: req.cookies[TargetClient.getVisitorCookieName(CONFIG.organizationId)],
+    targetCookie: req.cookies[TargetClient.TargetCookieName],
+    targetLocationHintCookie: req.cookies[TargetClient.TargetLocationHintCookieName]
   };
 }
 
@@ -157,11 +157,11 @@ function setTraceToken(trace = {}, req) {
 async function processRequestWithTarget(request, req, res) {
   // Set the trace data on the Delivery API request object, if available
   request.trace = setTraceToken(request.trace, req);
-  // Build Target Node Client API getOffers options
+  // Build Target Node.js SDK API getOffers options
   const options = Object.assign({ request }, getTargetCookieOptions(req));
 
   try {
-    // Call Target Node Client getOffers asynchronously
+    // Call Target Node.js SDK getOffers asynchronously
     const resp = await targetClient.getOffers(options);
     // Send back the response with Target offers, getOffers call completes successfully
     sendResponse(res, resp);
@@ -190,7 +190,7 @@ app.get("/", (req, res) => {
     }
   };
 
-  // Process the request by calling Target Node Client API
+  // Process the request by calling Target Node.js SDK API
   processRequestWithTarget(prefetchViewsRequest, req, res);
 });
 

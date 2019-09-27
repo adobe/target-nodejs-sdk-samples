@@ -1,7 +1,7 @@
 {
   "name": "target-only",
   "version": "1.0.0",
-  "description": "Adobe Target Node Client, target-only sample",
+  "description": "Adobe Target Node.js SDK, target-only sample",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

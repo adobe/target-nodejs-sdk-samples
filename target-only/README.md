@@ -1,11 +1,11 @@
 # Target only sample
 
-The Target Node Client can be used to retrieve personalized content from Target without forcing the use of ECID. 
+The Target Node.js SDK can be used to retrieve personalized content from Target without forcing the use of ECID. 
 
 ```js
-const TargetNodeClient = require("@adobe/target-node-client");
+const TargetClient = require("@adobe/target-nodejs-sdk");
 
-const targetClient = TargetNodeClient.create({
+const targetClient = TargetClient.create({
   client: "acmeclient",
   organizationId: "1234567890@AdobeOrg"
 });
@@ -26,7 +26,7 @@ try {
 }
 ```
 
-By default, the Target Node Client generates a new session ID for every Target call, 
+By default, the Target Node.js SDK generates a new session ID for every Target call, 
  which might not always be the desired behavior. To ensure that Target properly tracks the user session,
 you should ensure that the Target cookie is sent to the browser after Target content is retrieved
  and the Target cookie value is passed to `getOffers()`/`sendNotifications()` as an incoming request is processed.  
