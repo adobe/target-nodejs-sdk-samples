@@ -5,7 +5,7 @@ In the `ecid-analytics-atjs-integration` sample, we've showcased "hybrid" Target
 But what if we could prefetch the Target content on the server-side, include it in the page returned to the client, and then just have at.js apply the Target offers immediately, without making another expensive network call?
 Also, in this case at.js will be able to prehide only the specific DOM elements for which Target offers have been fetched on the server-side, thus no longer requiring the prehiding of the whole page BODY.
 
-Target `serverState` is a new feature available in at.js 2.x, that allows at.js to apply Target offers directly from content fetched on the server side and returned to the client as part of the page being served.
+Target `serverState` is a new feature available in at.js v2.2+, that allows at.js to apply Target offers directly from content fetched on the server side and returned to the client as part of the page being served.
 
 In order to use this feature with Target Node.js SDK we just have to set `window.targetGlobalSettings.serverState` object in the returned page, from Target Delivery API request and response objects available after a successfull `getOffers()` API call, as follows:
 

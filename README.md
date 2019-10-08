@@ -22,7 +22,7 @@ with ECID (Visitor API) and Adobe Analytics.
 - [ecid-analytics-atjs-integration](ecid-analytics-atjs-integration) - shows how Target Node.js SDK can be used in 
 conjunction with ECID (Visitor API), Adobe Analytics and at.js. This sample shows how to run testing in "hybrid" mode,
 when the test is started on the server side and then it is handed off to at.js on the client side.
-- [advanced-atjs-integration-serverstate](advanced-atjs-integration-serverstate) - shows how to use at.js 2.x **serverState** feature to apply Target offers fetched on the server side, without any additional client side content-fetching Target calls.
+- [advanced-atjs-integration-serverstate](advanced-atjs-integration-serverstate) - shows how to use at.js v2.2+ **serverState** feature to apply Target offers fetched on the server side, without any additional client side content-fetching Target calls.
 - [target-traces](target-traces) - shows how Target Node.js SDK can be used to retrieve Target execution traces.
 - [shared-ecid-analytics-integration](shared-ecid-analytics-integration) - shows how to properly handle multiple Target 
 Node.js SDK API calls when processing a client request, sharing the same ECID instance.

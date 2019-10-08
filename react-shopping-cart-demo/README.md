@@ -6,7 +6,7 @@ A React/Redux shopping cart sample using the full potential Target Node.js SDK b
 
 ## How it works
 
-Target `serverState` is a new feature available in at.js 2.x, that allows at.js to apply Target offers directly from content fetched on the server side and returned to the client as part of the page being served.
+Target `serverState` is a new feature available in at.js v2.2+, that allows at.js to apply Target offers directly from content fetched on the server side and returned to the client as part of the page being served.
 
 In order to use this feature with Target Node.js SDK, we just have to set `window.targetGlobalSettings.serverState` object in the returned page, from Target Delivery API request and response objects available after a successfull `getOffers()` API call.
 
