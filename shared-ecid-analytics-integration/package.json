@@ -1,0 +1,34 @@
+{
+  "name": "shared-ecid-analytics-integration",
+  "version": "1.0.0",
+  "description": "Adobe Target Node.js SDK, shared-ecid-analytics-integration sample",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Adobe-Marketing-Cloud/target-node-client-samples.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "Server",
+    "API",
+    "Adobe",
+    "Target",
+    "MCID",
+    "ECID",
+    "Visitor",
+    "Delivery",
+    "shared-ecid-analytics-integration"
+  ],
+  "author": "Adobe Systems Inc.",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@adobe-mcid/visitor-js-server": "^2.0.0",
+    "request": "^2.81.0",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "uuid": "^3.3.3"
+  }
+}
