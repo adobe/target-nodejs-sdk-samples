@@ -42,11 +42,92 @@ let result = TEMPLATE.replace(/\$\{organizationId\}/g, CONFIG.organizationId)
 res.status(200).send(result);
 ```
 
+A sample `serverState` object JSON for view prefetch looks as follows:
+```json
+{
+ "request": {
+  "requestId": "076ace1cd3624048bae1ced1f9e0c536",
+  "id": {
+   "tntId": "08210e2d751a44779b8313e2d2692b96.21_27"
+  },
+  "context": {
+   "channel": "web",
+   "timeOffsetInMinutes": 0
+  },
+  "experienceCloud": {
+   "analytics": {
+    "logging": "server_side",
+    "supplementalDataId": "7D3AA246CC99FD7F-1B3DD2E75595498E"
+   }
+  },
+  "prefetch": {
+   "views": [
+    {
+     "address": {
+      "url": "my.testsite.com/"
+     }
+    }
+   ]
+  }
+ },
+ "response": {
+  "status": 200,
+  "requestId": "076ace1cd3624048bae1ced1f9e0c536",
+  "id": {
+   "tntId": "08210e2d751a44779b8313e2d2692b96.21_27"
+  },
+  "client": "testclient",
+  "edgeHost": "mboxedge21.tt.omtrdc.net",
+  "prefetch": {
+   "views": [
+    {
+     "name": "home",
+     "key": "home",
+     "options": [
+      {
+       "type": "actions",
+       "content": [
+        {
+         "type": "setHtml",
+         "selector": "#app > DIV.app-container:eq(0) > DIV.page-container:eq(0) > DIV:nth-of-type(2) > SECTION.section:eq(0) > DIV.container:eq(1) > DIV.heading:eq(0) > H1.title:eq(0)",
+         "cssSelector": "#app > DIV:nth-of-type(1) > DIV:nth-of-type(1) > DIV:nth-of-type(2) > SECTION:nth-of-type(1) > DIV:nth-of-type(2) > DIV:nth-of-type(1) > H1:nth-of-type(1)",
+         "content": "<span style=\"color:#FF0000;\">Latest</span> Products for 2020"
+        }
+       ],
+       "eventToken": "t0FRvoWosOqHmYL5G18QCZNWHtnQtQrJfmRrQugEa2qCnQ9Y9OaLL2gsdrWQTvE54PwSz67rmXWmSnkXpSSS2Q==",
+       "responseTokens": {
+        "profile.memberlevel": "0",
+        "geo.city": "dublin",
+        "activity.id": "302740",
+        "experience.name": "Experience B",
+        "geo.country": "ireland"
+       }
+      }
+     ],
+     "state": "J+W1Fq18hxliDDJonTPfV0S+mzxapAO3d14M43EsM9f12A6QaqL+E3XKkRFlmq9U"
+    }
+   ]
+  }
+ }
+}
+```
+
 Here's what happens next, once the page is retrieved and rendered by the client's browser:
 
- * On initialization, at.js reads and caches the Target offers for app views, prefetched on the server-side and set in `window.targetGlobalSettings.serverState`.
- * As soon as a Target view is triggered in the React app via [triggerView() at.js API](https://docs.adobe.com/content/help/en/target/using/implement-target/client-side/functions-overview/adobe-target-triggerview-atjs-2.html), at.js will immediately apply the content for that Target view from `serverState`, without going over the wire to fetch Target content.
- * Instead of prehiding the whole page BODY, at.js will only prehide the DOM elements for which Target offers are available in the serverState content fetched server-side, thus positively impacting page load performance and end-user experience.
+ * On initialization, at.js reads and caches the Target offers for app views, prefetched on the server-side and set
+ in `window.targetGlobalSettings.serverState`.
+ * As soon as a Target view is triggered in the React app via 
+ [triggerView() at.js API](https://docs.adobe.com/content/help/en/target/using/implement-target/client-side/functions-overview/adobe-target-triggerview-atjs-2.html)
+ , at.js will immediately apply the content for that Target view from `serverState`, without going over the wire to fetch
+ Target content.
+ * Instead of prehiding the whole page BODY, at.js will only prehide the DOM elements for which Target offers are 
+ available in the serverState content fetched server-side, thus positively impacting page load performance and end-user experience.
+
+### Important notes 
+- At the moment, at.js v2.2 supports only Page Load and View Prefetch for `serverState` scenarios. Support for mboxes may 
+be provided in a future at.js release
+- When applying `serverState` offers, at.js takes into consideration `pageLoadEnabled` and `viewsEnabled` settings, e.g.
+Page Load offers will not be applied if `pageLoadEnabled` setting is `false`
 
 ## Try it out
 
