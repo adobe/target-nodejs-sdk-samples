@@ -30,3 +30,8 @@ Node.js SDK API calls when processing a client request, sharing the same ECID in
 Node.js SDK can be used to request content for multiple mboxes in the same Target call.
 
 For Target Node.js SDK documentation, see [Target Node.js SDK NPM page](https://www.npmjs.com/package/@adobe/target-nodejs-sdk).
+
+## Contributing
+
+Check out our [Contribution guidelines](.github/CONTRIBUTING.md) as well as [Code of Conduct](CODE_OF_CONDUCT.md) prior
+to contributing to Target Node.js SDK samples.
