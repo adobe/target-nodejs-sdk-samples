@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:Adobe-Marketing-Cloud/target-node-client-samples.git"
+    "url": "git@github.com:adobe/target-nodejs-sdk-samples.git"
   },
   "author": "Adobe Systems Inc.",
   "license": "Apache-2.0",

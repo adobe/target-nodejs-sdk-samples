@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:Adobe-Marketing-Cloud/target-node-client-samples.git"
+    "url": "git@github.com:adobe/target-nodejs-sdk-samples.git"
   },
   "keywords": [
     "NodeJS",
