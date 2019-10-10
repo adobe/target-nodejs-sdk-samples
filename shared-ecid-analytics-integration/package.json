@@ -25,8 +25,7 @@
   "author": "Adobe Systems Inc.",
   "license": "Apache-2.0",
   "dependencies": {
-    "@adobe-mcid/visitor-js-server": "^2.0.0",
-    "request": "^2.81.0",
+    "@adobe/target-nodejs-sdk": "^1.0.3",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
     "uuid": "^3.3.3"

@@ -15,8 +15,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const Visitor = require("@adobe-mcid/visitor-js-server");
 const uuidv4 = require("uuid/v4");
-// const TargetClient = require("@adobe/target-nodejs-sdk");
-const TargetClient = require("./tmp-node-client/index"); // Temp fix until NodeJS SDK is public
+const TargetClient = require("@adobe/target-nodejs-sdk");
 const CONFIG = {
   client: "adobetargetmobile",
   organizationId: "B8A054D958807F770A495DD6@AdobeOrg",
