@@ -1,6 +1,5 @@
 import { parseCookies, setCookie } from "nookies";
-// import TargetClient from "@adobe/target-nodejs-sdk";
-import TargetClient from "../tmp-node-client/index"; // Temp fix until NodeJS SDK is public
+import TargetClient from "@adobe/target-nodejs-sdk";
 import CONFIG from "./target-config.json";
 
 const targetOptions = Object.assign({ logger: console }, CONFIG);
@@ -43,6 +42,10 @@ function setResponseCookies(ctx, response) {
 }
 
 async function prefetchOffers(ctx) {
+  const { req } = ctx;
+  if (!req) {
+    return {};
+  }
   const requestURL = ctx.req.headers.host + ctx.asPath;
   const prefetchViewsRequest = {
     prefetch: {

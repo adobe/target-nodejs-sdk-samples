@@ -2,8 +2,7 @@ const fs = require("fs");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 // Load the Target NodeJS SDK library
-// const TargetClient = require("@adobe/target-nodejs-sdk");
-const TargetClient = require("./tmp-node-client/index"); // Temp fix until NodeJS SDK is public
+const TargetClient = require("@adobe/target-nodejs-sdk");
 // Load the Target configuration (replace with configurations specific to your Adobe Client & Org)
 const CONFIG = require("./config.json");
 // Load the template of the HTML page returned in the response
