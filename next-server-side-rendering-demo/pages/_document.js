@@ -24,13 +24,14 @@ class MyDocument extends Document {
           <script src="static/at.js"></script>
         </Head>
         <body>
-        <Main />
-        <NextScript />
-        <script src="static/AppMeasurement.js"></script>
-        <script dangerouslySetInnerHTML={{
-          __html: Target.analyticsBeacon()
-        }}
-        />
+          <div className="container"></div>
+          <Main />
+          <NextScript />
+          <script src="static/AppMeasurement.js"></script>
+          <script dangerouslySetInnerHTML={{
+            __html: Target.analyticsBeacon()
+          }}
+          />
         </body>
       </Html>
     );
