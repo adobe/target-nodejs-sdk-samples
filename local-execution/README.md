@@ -3,15 +3,15 @@
 The Target Node.js SDK can be used to determine personalized content without making a request to the delivery api each time.  This is a new feature, currently only available in the alpha version of the sdk.
 
 
-## Demo
+## Sample
 
-This demo utilizes local execution mode for determining target experiences.  By default, the SDK always makes a request to the target delivery API for each getOffers call.  But you can configure the SDK to use local execution mode instead.  This mode downloads target activity rules on initialization, then uses it to determine target outcomes when getOffers is called, instead of making a request to the delivery API each time.  
+This sample utilizes local execution mode to determine target experiences.  By default, the SDK always makes a request to the target delivery API for each getOffers call.  But you can configure the SDK to use local execution mode instead.  This mode downloads target activity rules on initialization.   These rules are then used to determine target outcomes when getOffers is called, instead of making a request to the delivery API each time.  
 
 There are three properties to keep in mind when using local execution mode:
 
 | Name                      | Description                                                                         |
 |---------------------------|-------------------------------------------------------------------------------------|
-| executionMode             | The execution mode the SDK will run in.  Can be `local`, `remote`, or `hybrid`      |
+| executionMode             | The execution mode the SDK will run in.  Can be `local`, `remote`, or `hybrid`. Defaults to `remote`      |
 | artifactLocation          | This is a fully qualified url to the rules definition file that will be used to determine outcomes locally.  During the alpha, this value is required.      |
 | clientReadyCallback       | A callback function that will be invoked when the SDK is ready for getOffers method calls.  This is required for local execution mode.      |
 
