@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{pageTitle}}</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="icon" href="https://wwwimages2.adobe.com/favicon.ico" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    #result {
+      padding: 25px;
+      background-color: lightcyan;
+    }
+
+    #result.error {
+      background-color: lightpink;
+    }
+  </style>
+</head>
+<body>
+  <h1>{{pageTitle}}</h1>
+  <pre id="result" {{#if error}}class="error"{{/if}}>{{targetResponse}}</pre>
+</body>
+</html>

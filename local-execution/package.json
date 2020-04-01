@@ -1,0 +1,33 @@
+{
+  "name": "target-local-execution",
+  "version": "1.0.0",
+  "description": "Adobe Target Node.js SDK, target local execution sample",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:adobe/target-nodejs-sdk-samples.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "Server",
+    "API",
+    "Adobe",
+    "Target",
+    "MCID",
+    "ECID",
+    "Visitor",
+    "Delivery",
+    "target-local-execution"
+  ],
+  "author": "Adobe Systems Inc.",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@adobe/target-nodejs-sdk": "alpha",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "handlebars": "^4.7.4"
+  }
+}
