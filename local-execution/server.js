@@ -10,100 +10,97 @@
  * governing permissions and limitations under the License.
  ****************************************************************************************/
 
+const _ = require("lodash");
 const fs = require("fs");
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const Handlebars = require('handlebars');
+const Handlebars = require("handlebars");
 const TargetClient = require("@adobe/target-nodejs-sdk");
 
+const PAGE_TITLE = "Target Local Sample";
 // Load the template of the HTML page returned in the response
 const TEMPLATE = fs.readFileSync(`${__dirname}/index.handlebars`).toString();
 const handlebarsTemplate = Handlebars.compile(TEMPLATE);
-const responseVars = {
-  pageTitle: "Target Local Demo"
-};
-
-const CONFIG = {
-  client: "adobesummit2018",
-  organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
-  executionMode: "local",
-  artifactLocation: "https://assets.staging.adobetarget.com/adobesummit2018/waters_test/demo.json",
-  clientReadyCallback: targetReady
-};
-
-const targetClient = TargetClient.create(CONFIG);
 
 const app = express();
+app.use(express.static("public"));
 app.use(cookieParser());
+
+const RESPONSE_HEADERS = {
+  "Content-Type": "text/html",
+  Expires: new Date().toUTCString(),
+};
 
 function saveCookie(res, cookie) {
   if (!cookie) {
     return;
   }
 
-  res.cookie(cookie.name, cookie.value, {maxAge: cookie.maxAge * 1000});
+  res.cookie(cookie.name, cookie.value, { maxAge: cookie.maxAge * 1000 });
 }
 
-const getResponseHeaders = () => ({
-  "Content-Type": "text/html",
-  "Expires": new Date().toUTCString()
-});
-
-function sendHtml(res, offer) {
-  const htmlResponse = handlebarsTemplate({
-    ...responseVars,
-    targetResponse: JSON.stringify(offer, null, 4),
+function sendHtml(res, pageContext) {
+  const html = handlebarsTemplate({
+    pageTitle: PAGE_TITLE,
+    ...pageContext,
   });
 
-  res.status(200).send(htmlResponse);
+  res.status(200).send(html);
 }
 
-function sendSuccessResponse(res, response) {
-  res.set(getResponseHeaders());
-  saveCookie(res, response.targetCookie);
-  sendHtml(res, response);
+function sendSuccessResponse(res, targetResponse) {
+  res.set(RESPONSE_HEADERS);
+  saveCookie(res, targetResponse.targetCookie);
+
+  const offer = _.get(
+    targetResponse,
+    "response.execute.mboxes[0].options[0].content"
+  );
+
+  sendHtml(res, {
+    targetResponse: JSON.stringify(targetResponse, null, 4),
+    offer,
+  });
 }
 
 function sendErrorResponse(res, error) {
-  res.set(getResponseHeaders());
-  const htmlResponse = handlebarsTemplate({
-    ...responseVars,
+  res.set(RESPONSE_HEADERS);
+  sendHtml(res, {
     error: true,
-    targetResponse: JSON.stringify({
-      message: `ERROR: ${error.message}`
-    }, null, 4),
+    targetResponse: `ERROR: ${error.message}`,
   });
-
-  res.status(200).send(htmlResponse);
 }
 
-function getAddress(req) {
-  return {url: req.headers.host + req.originalUrl}
-}
+const CONFIG = {
+  client: "adobesummit2018",
+  organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
+  executionMode: "local",
+  artifactLocation:
+    "https://assets.staging.adobetarget.com/adobesummit2018/demo/rules339937.json",
+  clientReadyCallback: startExpressApp,
+};
 
-function targetReady() {
+const targetClient = TargetClient.create(CONFIG);
+
+function startExpressApp() {
   app.get("/", async (req, res) => {
     const targetCookie = req.cookies[TargetClient.TargetCookieName];
     const request = {
       context: {
-        "userAgent": req.get("user-agent"),
-        "channel": "web",
-        "browser": {"host": req.get("host")},
+        userAgent: req.get("user-agent"),
+        channel: "web",
+        browser: { host: req.get("host") },
       },
       execute: {
-        mboxes: [{
-          address: getAddress(req),
-          name: "kitty"
-        },
-          {
-            address: getAddress(req),
-            name: "browser-mbox"
-          }]
-      }
+        mboxes: [{ name: "demo-marketing-offer1" }],
+      },
     };
 
     try {
-      const response = await targetClient.getOffers({request, targetCookie});
+      const response = await targetClient.getOffers({
+        request,
+        targetCookie,
+      });
       sendSuccessResponse(res, response);
     } catch (error) {
       console.error("Target:", error);
