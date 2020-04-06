@@ -1,45 +1,53 @@
 const fetch = require("node-fetch");
 
 const starWarsSearchProvider = {
-  domain: 'Star Wars characters ( try "Skywalker")',
+  domain: 'a Star Wars character ( try "skywalker")',
   execute: async (searchTerm) => {
     const result = await fetch(
       `https://swapi.co/api/people/?format=json&search=${searchTerm}`
     ).then((result) => result.json());
 
+    const list = result.results;
+
     return {
       term: searchTerm,
       message: `Searched for ${searchTerm} with Star Wars search provider`,
-      list: result.results,
+      list,
     };
   },
 };
 
-const gameOfThronesSearchProvider = {
-  domain: 'Game of Thrones characters ( try "Jon Snow")',
+const starTrekSearchProvider = {
+  domain: 'a Star Trek character ( try "picard")',
   execute: async (searchTerm) => {
-    const result = await fetch(
-      `https://anapioficeandfire.com/api/characters/?&name=${searchTerm}`
-    ).then((result) => result.json());
+    const searchParams = new URLSearchParams();
+    searchParams.set("title", searchTerm);
+    searchParams.set("name", searchTerm);
 
-    const characters = result.map((character) => {
+    const result = await fetch(`http://stapi.co/api/v1/rest/character/search`, {
+      method: "POST",
+      body: searchParams,
+    }).then((result) => result.json());
+
+    const list = (result.characters || []).map((character) => {
       return {
-        name: character.name || character.aliases[0],
+        name: character.name,
         gender: character.gender,
+        birth_year: character.yearOfBirth,
       };
     });
 
     return {
       term: searchTerm,
-      message: `Searched for ${searchTerm} with Game of Thrones search provider`,
-      list: characters,
+      message: `Searched for ${searchTerm} with Star Wars search provider`,
+      list,
     };
   },
 };
 
 const searchProviders = {
-  143: starWarsSearchProvider,
-  304: gameOfThronesSearchProvider,
+  143: starTrekSearchProvider,
+  304: starWarsSearchProvider,
 };
 
 function getSearchProvider(providerId) {

@@ -75,8 +75,7 @@ const CONFIG = {
   client: "adobesummit2018",
   organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
   executionMode: "local",
-  artifactLocation:
-    "https://assets.staging.adobetarget.com/adobesummit2018/demo/sampleRules.json",
+  artifactPayload: require("./sampleRules"),
   clientReadyCallback: startExpressApp,
 };
 
