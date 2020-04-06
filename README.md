@@ -29,6 +29,7 @@ Node.js SDK API calls when processing a client request, sharing the same ECID in
 - [multiple-mbox-ecid-analytics-atjs-integration](multiple-mbox-ecid-analytics-atjs-integration) - shows how Target 
 Node.js SDK can be used to request content for multiple mboxes in the same Target call.
 - [local-execution](local-execution) - shows how Target Node.js SDK can be used in local execution mode
+- [feature-flag](feature-flag) - shows how Target Node.js SDK can be easily used for feature flags
 
 For Target Node.js SDK documentation, see [Target Node.js SDK NPM page](https://www.npmjs.com/package/@adobe/target-nodejs-sdk).
 
