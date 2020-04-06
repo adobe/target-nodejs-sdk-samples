@@ -15,6 +15,7 @@ mbox: `demo-engineering-flags`
     "hasLegacyAccess": false
 }
 ```
+
 #### Experience B
 ```json
 {
@@ -30,16 +31,16 @@ mbox: `demo-marketing-offer1`
 ### Experience A
 ```json
 {
-  "experience": "A",
-  "asset": "demo-marketing-offer1-exp-A.png"
+    "experience": "A",
+    "asset": "demo-marketing-offer1-exp-A.png"
 }
 ```
 ### Experience B
 
 ```json
 {
-  "experience": "B",
-  "asset": "demo-marketing-offer1-exp-B.png"
+    "experience": "B",
+    "asset": "demo-marketing-offer1-exp-B.png"
 }
 ```
 
@@ -64,25 +65,25 @@ The `getValue` method is used to get the `searchProviderId` from the `demo-engin
 And the `asObject` method is used to get a plain old JSON representation of the `demo-marketing-offer1` mbox offer.
 
 ```js
-	const targetClient = TargetClient.create(CONFIG);
-	const offerAttributes = await targetClient.getAttributes([
-		"demo-marketing-flags",
-		"demo-engineering-flags",
-		"demo-marketing-offer1",
-	], { targetCookie });
-	
+    const targetClient = TargetClient.create(CONFIG);
+    const offerAttributes = await targetClient.getAttributes([
+        "demo-marketing-flags",
+        "demo-engineering-flags",
+        "demo-marketing-offer1",
+    ], { targetCookie });
+    
 
-	//returns just the value of searchProviderId from the mbox offer
-	const searchProviderId = offerAttributes.getValue("demo-engineering-flags", "searchProviderId");	
+    //returns just the value of searchProviderId from the mbox offer
+    const searchProviderId = offerAttributes.getValue("demo-engineering-flags", "searchProviderId");	
+    
+    //returns a simple JSON object representing the mbox offer
+    const marketingOffer = offerAttributes.asObject("demo-marketing-offer1");
 	
-	//returns a simple JSON object representing the mbox offer
-	const marketingOffer = offerAttributes.asObject("demo-marketing-offer1");
-	
-	// the value of maketingOffer looks like this
-	// {
-   //     "experience": "A",
-   //		"asset": "demo-marketing-offer1-exp-A.png"
-   //	}
+    //  the value of marketingOffer looks like this
+    //  {
+    //      "experience": "A",
+    //      "asset": "demo-marketing-offer1-exp-A.png"
+    //  }
 	
 ```
 

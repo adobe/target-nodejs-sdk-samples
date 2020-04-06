@@ -7,16 +7,16 @@ For this sample, we first created a simple AB activity for the `demo-marketing-o
 ### Experience A
 ```json
 {
-  "experience": "A",
-  "asset": "demo-marketing-offer1-exp-A.png"
+    "experience": "A",
+    "asset": "demo-marketing-offer1-exp-A.png"
 }
 ```
 ### Experience B
 
 ```json
 {
-  "experience": "B",
-  "asset": "demo-marketing-offer1-exp-B.png"
+    "experience": "B",
+    "asset": "demo-marketing-offer1-exp-B.png"
 }
 ```
 
@@ -47,9 +47,9 @@ There are three main properties to keep in mind when using local execution mode:
 
 ```js
 const CONFIG = {
-  executionMode: "local",
-  artifactLocation: ".../path/to/decisioning/rules.json", // This is only necessary during the alpha
-  clientReadyCallback: targetReady
+    executionMode: "local",
+    artifactLocation: ".../path/to/decisioning/rules.json", // This is only necessary during the alpha
+    clientReadyCallback: targetReady
 };
 
 const targetClient = TargetClient.create(CONFIG);
