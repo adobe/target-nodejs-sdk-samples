@@ -1,0 +1,25 @@
+#result {
+  padding: 25px;
+  background-color: lightcyan;
+}
+
+#result.error {
+  background-color: lightpink;
+}
+
+.offer {
+  width: 100%;
+  max-width: 480px;
+}
+
+.offer img {
+  width: 100%;
+  height: auto;
+}
+
+input.searchbox {
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}

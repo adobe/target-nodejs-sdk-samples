@@ -1,20 +1,42 @@
 # Target Local execution sample
 
-This sample makes a getOffers call for the `demo-marketing-offer1` mbox.  The SDK is configured to use local execution mode to determine the outcome of the call rather make a request to the target delivery API.
+## Overview
+
+For this sample, we first created a simple AB activity for the `demo-marketing-offer1` mbox.  It has two experiences, each with JSON offer content.
+
+### Experience A
+```json
+{
+  "experience": "A",
+  "asset": "demo-marketing-offer1-exp-A.png"
+}
+```
+### Experience B
+
+```json
+{
+  "experience": "B",
+  "asset": "demo-marketing-offer1-exp-B.png"
+}
+```
+
+As you can see, each experience has a different filename set in the `asset` property.
+
+When run, the app server makes a getOffers call, requesting the `demo-marketing-offer1` mbox.  But the SDK has been configured to use local execution mode to determine the outcome of the call rather than send a request to the target delivery API.
+
+When the page is loaded in a browser, an image is shown at the top of the page.  This image comes from one of the two experiences in the activity defined above.  The target response is also shown on the page.
 
 ## Running the sample
 1. Install dependencies: `npm i`
 2. Start: `npm start`
 3. Point a browser to http://127.0.0.1:3000
 
-Notice the image at the top of the page.  It will be different depending on the experience provided from target.  The target response is also shown on the page.
 
+## How it works
 
-## Additional Details
+This sample utilizes local execution mode to determine target experiences.  By default, the SDK always makes a request to the target delivery API for each `getOffers` call.  But you can configure the SDK to use local execution mode instead.  This mode downloads target activity rules on initialization.   The rules are then used to determine which experiences to return when `getOffers` is called, rather than make a request to the delivery API each time.
 
-This sample utilizes local execution mode to determine target experiences.  By default, the SDK always makes a request to the target delivery API for each getOffers call.  But you can configure the SDK to use local execution mode instead.  This mode downloads target activity rules on initialization.   These rules are then used to determine target outcomes when getOffers is called, instead of making a request to the delivery API each time.  
-
-There are three properties to keep in mind when using local execution mode:
+There are three main properties to keep in mind when using local execution mode:
 
 | Name                      | Description                                                                         |
 |---------------------------|-------------------------------------------------------------------------------------|

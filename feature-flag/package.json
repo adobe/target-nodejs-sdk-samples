@@ -1,7 +1,7 @@
 {
-  "name": "target-feature-flag",
+  "name": "target-local-execution",
   "version": "1.0.0",
-  "description": "Adobe Target Node.js SDK, target feature flag sample",
+  "description": "Adobe Target Node.js SDK, target local execution sample",
   "main": "index.js",
   "scripts": {
     "start": "node server.js"
@@ -29,6 +29,7 @@
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "handlebars": "^4.7.4",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "node-fetch": "^2.6.0"
   }
 }

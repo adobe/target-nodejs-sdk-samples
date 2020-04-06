@@ -16,6 +16,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const Handlebars = require("handlebars");
 const TargetClient = require("@adobe/target-nodejs-sdk");
+const { getSearchProvider } = require("./provider");
 
 const PAGE_TITLE = "Target Local Sample";
 // Load the template of the HTML page returned in the response
@@ -41,25 +42,20 @@ function saveCookie(res, cookie) {
 
 function sendHtml(res, pageContext) {
   const html = handlebarsTemplate({
-    pageTitle: PAGE_TITLE,
     ...pageContext,
+    pageTitle: PAGE_TITLE,
   });
 
   res.status(200).send(html);
 }
 
-function sendSuccessResponse(res, targetResponse) {
+function sendSuccessResponse(res, targetResponse, pageContext = {}) {
   res.set(RESPONSE_HEADERS);
   saveCookie(res, targetResponse.targetCookie);
 
-  const offer = _.get(
-    targetResponse,
-    "response.execute.mboxes[0].options[0].content"
-  );
-
   sendHtml(res, {
+    ...pageContext,
     targetResponse: JSON.stringify(targetResponse, null, 4),
-    offer,
   });
 }
 
@@ -82,26 +78,40 @@ const CONFIG = {
 
 const targetClient = TargetClient.create(CONFIG);
 
-function startExpressApp() {
+async function startExpressApp() {
   app.get("/", async (req, res) => {
     const targetCookie = req.cookies[TargetClient.TargetCookieName];
-    const request = {
-      context: {
-        userAgent: req.get("user-agent"),
-        channel: "web",
-        browser: { host: req.get("host") },
-      },
-      execute: {
-        mboxes: [{ name: "demo-marketing-offer1" }],
-      },
-    };
-
     try {
-      const response = await targetClient.getOffers({
-        request,
-        targetCookie,
+      const offerAttributes = await targetClient.getAttributes(
+        [
+          "demo-marketing-flags",
+          "demo-engineering-flags",
+          "demo-marketing-offer1",
+        ],
+        { targetCookie }
+      );
+
+      const searchProviderId = offerAttributes.getValue(
+        "demo-engineering-flags",
+        "searchProviderId"
+      );
+
+      const searchProvider = getSearchProvider(searchProviderId);
+
+      let searchResult;
+
+      if (req.query.search) {
+        searchResult = await searchProvider.execute(req.query.search);
+      }
+
+      sendSuccessResponse(res, offerAttributes.getResponse(), {
+        search: {
+          domain: searchProvider.domain,
+          result: searchResult,
+        },
+        flags: JSON.stringify(offerAttributes.asObject(), null, 4),
+        offer: offerAttributes.asObject("demo-marketing-offer1"),
       });
-      sendSuccessResponse(res, response);
     } catch (error) {
       console.error("Target:", error);
       sendErrorResponse(res, error);
