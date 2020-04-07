@@ -67,7 +67,6 @@ And the `asObject` method is used to get a plain old JSON representation of the 
 ```js
     const targetClient = TargetClient.create(CONFIG);
     const offerAttributes = await targetClient.getAttributes([
-        "demo-marketing-flags",
         "demo-engineering-flags",
         "demo-marketing-offer1",
     ], { targetCookie });
