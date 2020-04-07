@@ -46,8 +46,8 @@ const starTrekSearchProvider = {
 };
 
 const searchProviders = {
-  143: starTrekSearchProvider,
-  304: starWarsSearchProvider,
+  startrek: starTrekSearchProvider,
+  starwars: starWarsSearchProvider,
 };
 
 function getSearchProvider(providerId) {

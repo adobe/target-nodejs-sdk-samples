@@ -2,7 +2,7 @@
 
 ## Overview
 
-For this sample, we first created two simple AB activities.  One to represent feature flags for engineering purposes and another for marketing purposes.  Each activity has two experiences that have JSON offer content.  The JSON holds unique key value pairs that are used by the sample app to determine what engineering systems to use and marketing content to show.
+For this sample, we first created two simple AB activities.  One to represent feature flags for engineering purposes and another for marketing purposes.  Each activity has two experiences that have JSON offer content.  The JSON holds unique key value pairs that are used by the sample app to determine what engineering systems to use and marketing content to show.  
 
 ### Engineering Feature Flags Activity 
 mbox: `demo-engineering-flags`
@@ -11,7 +11,7 @@ mbox: `demo-engineering-flags`
 ```json
 {
     "cdnHostname": "cdn.cloud.corp.net",
-    "searchProviderId": 143,
+    "searchProviderId": "starwars",
     "hasLegacyAccess": false
 }
 ```
@@ -20,7 +20,7 @@ mbox: `demo-engineering-flags`
 ```json
 {
     "cdnHostname": "cdn.megacloud.corp.com",
-    "searchProviderId": 304,
+    "searchProviderId":"startrek",
     "hasLegacyAccess": true
 }
 ```
@@ -44,7 +44,7 @@ mbox: `demo-marketing-offer1`
 }
 ```
 
-When run, the sample app displays a marketing banner and a search box.  The marketing banner is different depending on the experience of the marketing activity above. And the search experience differs depending on the Engineering activity.  
+When run, the sample app displays a marketing banner and a search box.  The marketing banner is different depending on the `asset` value of the `demo-marketing-offer1` mbox. And the search experience differs depending on the `searchProviderId` value of the `demo-engineering-flags` mbox.  If the value is `starwars`,a [Star Wars API](https://swapi.co/) is used to search for characters.  If the value is `startrek`, a [Star Trek API](http://stapi.co/) is used to search for characters.
 
 In this sample, the `getAttributes` call is used to greatly simplify accessing the JSON offer.  Typically, a developer would need to find the JSON offer object in the response of the `getOffers` call.  This is done in other samples.  It is straightforward, but can be cumbersome -- and it requires developers to be intimately familiar with the SDK response object.  
 

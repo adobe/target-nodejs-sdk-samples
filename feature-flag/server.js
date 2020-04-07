@@ -82,11 +82,7 @@ async function startExpressApp() {
     const targetCookie = req.cookies[TargetClient.TargetCookieName];
     try {
       const offerAttributes = await targetClient.getAttributes(
-        [
-          "demo-marketing-flags",
-          "demo-engineering-flags",
-          "demo-marketing-offer1",
-        ],
+        ["demo-engineering-flags", "demo-marketing-offer1"],
         { targetCookie }
       );
 
