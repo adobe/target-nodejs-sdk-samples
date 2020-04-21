@@ -4,7 +4,7 @@ const starWarsSearchProvider = {
   domain: 'a Star Wars character ( try "skywalker")',
   execute: async (searchTerm) => {
     const result = await fetch(
-      `https://swapi.co/api/people/?format=json&search=${searchTerm}`
+      `https://swapi.dev/api/people/?format=json&search=${searchTerm}`
     ).then((result) => result.json());
 
     const list = result.results;
