@@ -39,7 +39,7 @@ const starTrekSearchProvider = {
 
     return {
       term: searchTerm,
-      message: `Searched for ${searchTerm} with Star Wars search provider`,
+      message: `Searched for ${searchTerm} with Star Trek search provider`,
       list,
     };
   },
