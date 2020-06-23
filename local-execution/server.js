@@ -76,7 +76,9 @@ const CONFIG = {
   organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
   executionMode: "local",
   artifactPayload: require("./sampleRules"),
-  clientReadyCallback: startExpressApp,
+  events: {
+    clientReady:startExpressApp
+  },
 };
 
 const targetClient = TargetClient.create(CONFIG);

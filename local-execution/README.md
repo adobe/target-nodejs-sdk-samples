@@ -43,7 +43,7 @@ There are four main properties to keep in mind when using local execution mode:
 | executionMode             | The execution mode the SDK will run in.  Can be `local`, `remote`, or `hybrid`. Defaults to `remote`      |
 | artifactLocation          | This is a fully qualified url to the rules definition file that will be used to determine outcomes locally.  |
 | artifactPayload           | A target decisioning JSON artifact. If specified, it is used instead of requesting one from a URL. |
-| clientReadyCallback       | A callback function that will be invoked when the SDK is ready for getOffers method calls.  This is required for local execution mode.      |
+| events                    |  Object.<String, Function>  | No      | None          | An optional object with event name keys and callback function values. |
 
 NOTE: You must specify an `artifactLocation` or `artifactPayload` during the alpha release for local execution mode to work.
 
@@ -51,7 +51,7 @@ NOTE: You must specify an `artifactLocation` or `artifactPayload` during the alp
 const CONFIG = {
     executionMode: "local",
     artifactPayload: require("sampleRules"),
-    clientReadyCallback: targetReady
+    events: { clientReady: targetReady }
 };
 
 const targetClient = TargetClient.create(CONFIG);
@@ -62,4 +62,4 @@ function targetReady() {
 }
 ```
 
-Once configured in this way, and after the clientReadyCallback has been invoked, an app can make standard SDK method calls as normal.
+Once configured in this way, and after the `clientReady` event callback has been invoked, an app can make standard SDK method calls as normal.
