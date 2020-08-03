@@ -20,7 +20,7 @@
     "ECID",
     "Visitor",
     "Delivery",
-    "target-local-execution"
+    "target-on-device-decisioning"
   ],
   "author": "Adobe Systems Inc.",
   "license": "Apache-2.0",

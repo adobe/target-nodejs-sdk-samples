@@ -1,4 +1,4 @@
-# Target Local execution sample
+# Target on-device decisioning sample
 
 ## Overview
 
@@ -22,7 +22,7 @@ For this sample, we first created a simple AB activity for the `demo-marketing-o
 
 As you can see, each experience has a different filename set in the `asset` property.
 
-When run, the app server makes a getOffers call, requesting the `demo-marketing-offer1` mbox.  But the SDK has been configured to use local execution mode to determine the outcome of the call rather than send a request to the target delivery API.
+When run, the app server makes a getOffers call, requesting the `demo-marketing-offer1` mbox.  But the SDK has been configured to use on-device decisioning method to determine the outcome of the call rather than send a request to the target delivery API.
 
 When the page is loaded in a browser, an image is shown at the top of the page.  This image comes from one of the two experiences in the activity defined above.  The target response is also shown on the page.
 
@@ -34,22 +34,22 @@ When the page is loaded in a browser, an image is shown at the top of the page. 
 
 ## How it works
 
-This sample utilizes local execution mode to determine target experiences.  By default, the SDK always makes a request to the target delivery API for each `getOffers` call.  But you can configure the SDK to use local execution mode instead.  This mode downloads target activity rules on initialization.   The rules are then used to determine which experiences to return when `getOffers` is called, rather than make a request to the delivery API each time.
+This sample utilizes on-device decisioning method to determine target experiences.  By default, the SDK always makes a request to the target delivery API for each `getOffers` call.  But you can configure the SDK to use on-device decisioning method instead.  This mode downloads target activity rules on initialization.   The rules are then used to determine which experiences to return when `getOffers` is called, rather than make a request to the delivery API each time.
 
-There are four main properties to keep in mind when using local execution mode:
+There are four main properties to keep in mind when using on-device decisioning method:
 
 | Name                      | Description                                                                         |
 |---------------------------|-------------------------------------------------------------------------------------|
-| executionMode             | The execution mode the SDK will run in.  Can be `local`, `remote`, or `hybrid`. Defaults to `remote`      |
+| decisioningMethod         | The decisioning method the SDK will run in.  Can be `on-device`, `server-side`, or `hybrid`. Defaults to `server-side`      |
 | artifactLocation          | This is a fully qualified url to the rules definition file that will be used to determine outcomes locally.  |
 | artifactPayload           | A target decisioning JSON artifact. If specified, it is used instead of requesting one from a URL. |
 | events                    |  Object.<String, Function>  | No      | None          | An optional object with event name keys and callback function values. |
 
-NOTE: You must specify an `artifactLocation` or `artifactPayload` during the alpha release for local execution mode to work.
+NOTE: You must specify an `artifactLocation` or `artifactPayload` during the alpha release for on-device decisioning method to work.
 
 ```js
 const CONFIG = {
-    executionMode: "local",
+    decisioningMethod: "on-device",
     artifactPayload: require("sampleRules"),
     events: { clientReady: targetReady }
 };

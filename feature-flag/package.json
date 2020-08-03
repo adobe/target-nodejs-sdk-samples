@@ -1,7 +1,7 @@
 {
-  "name": "target-local-execution",
+  "name": "target-on-device-decisioning",
   "version": "1.0.0",
-  "description": "Adobe Target Node.js SDK, target local execution sample",
+  "description": "Adobe Target Node.js SDK, target on-device decisioning sample",
   "main": "index.js",
   "scripts": {
     "start": "node server.js"
@@ -20,7 +20,7 @@
     "ECID",
     "Visitor",
     "Delivery",
-    "target-local-execution"
+    "target-on-device-decisioning"
   ],
   "author": "Adobe Systems Inc.",
   "license": "Apache-2.0",

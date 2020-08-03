@@ -86,4 +86,4 @@ And the `asObject` method is used to get a plain old JSON representation of the 
 	
 ```
 
-Note: This sample uses local execution mode.  But the `getAttributes` method can be used in any execution mode.
+Note: This sample uses on-device decisioning method.  But the `getAttributes` method can be used in any decisioning method.

@@ -17,7 +17,7 @@ const cookieParser = require("cookie-parser");
 const Handlebars = require("handlebars");
 const TargetClient = require("@adobe/target-nodejs-sdk");
 
-const PAGE_TITLE = "Target Local Sample";
+const PAGE_TITLE = "Target On-Device Decisioning Sample";
 // Load the template of the HTML page returned in the response
 const TEMPLATE = fs.readFileSync(`${__dirname}/index.handlebars`).toString();
 const handlebarsTemplate = Handlebars.compile(TEMPLATE);
@@ -74,7 +74,7 @@ function sendErrorResponse(res, error) {
 const CONFIG = {
   client: "adobesummit2018",
   organizationId: "65453EA95A70434F0A495D34@AdobeOrg",
-  executionMode: "local",
+  decisioningMethod: "on-device",
   artifactPayload: require("./sampleRules"),
   events: {
     clientReady:startExpressApp
