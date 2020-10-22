@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{pageTitle}}</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="icon" href="https://wwwimages2.adobe.com/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <div class="container">
+    {{#if offer}}
+      <div class="py-5">
+        <h1>{{pageTitle}}</h1>
+        <p class="lead">Experience {{offer.experience}}</p>
+        <img src="{{offer.asset}}" class="rounded offer" />
+      </div>
+    {{/if}}
+    <div class="py-3">
+      <h2>Target Response</h2>
+      <pre id="result" {{#if error}}class="error"{{/if}}>{{targetResponse}}</pre>
+    </div>
+  </div>
+</body>
+</html>
