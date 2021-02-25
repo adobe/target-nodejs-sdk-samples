@@ -25,7 +25,7 @@
   "author": "Adobe Systems Inc.",
   "license": "Apache-2.0",
   "dependencies": {
-    "@adobe/target-nodejs-sdk": "alpha",
+    "@adobe/target-nodejs-sdk": "^2.1.0",
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "handlebars": "^4.7.4",
