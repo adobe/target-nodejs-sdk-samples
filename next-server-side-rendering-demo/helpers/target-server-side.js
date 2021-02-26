@@ -26,14 +26,21 @@ function getTargetOptions(ctx) {
   };
 }
 
-function setTraceToken(trace = {}, ctx) {
+function setTraceToken(request = {}, ctx) {
+  const { trace={} } = request;
   const { authorizationToken = ctx.query.authorization } = trace;
 
   if (!authorizationToken || typeof authorizationToken !== "string") {
-    return trace;
+    return request;
   }
 
-  return Object.assign({}, trace, { authorizationToken });
+  return {
+    ...request,
+    trace: {
+      ...trace,
+      authorizationToken
+    }
+  }
 }
 
 function setResponseCookies(ctx, response) {
@@ -47,12 +54,13 @@ async function prefetchOffers(ctx) {
     return {};
   }
   const requestURL = ctx.req.headers.host + ctx.asPath;
-  const prefetchViewsRequest = {
+  let prefetchViewsRequest = {
     prefetch: {
       views: [{ address: { url: requestURL } }]
     }
   };
-  prefetchViewsRequest.trace = setTraceToken(prefetchViewsRequest.trace, ctx);
+
+  prefetchViewsRequest = setTraceToken(prefetchViewsRequest, ctx);
 
   const options = Object.assign(
     { request: prefetchViewsRequest },
