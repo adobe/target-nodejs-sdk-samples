@@ -6,10 +6,10 @@ This repository contains samples and demos for the [Target Node.js SDK](https://
 
 - [react-shopping-cart-demo](react-shopping-cart-demo) - a demo showing how to fetch and inject Target offers in a
 [React Redux](https://react-redux.js.org/) app on the server side and then instantly apply the offers on the client side,
-without any additional client-side Target calls. Check out the [Live Demo](http://target-nodejs-react-sample.eu-west-1.elasticbeanstalk.com).
+without any additional client-side Target calls.  
 - [next-server-side-rendering-demo](next-server-side-rendering-demo) - a demo showing how to fetch and inject Target offers 
 in a [Next.js](https://nextjs.org/) server-side rendered app, and then instantly apply the offers on the client side,
-without any additional client-side Target calls. Check out the [Live Demo](http://target-nodejs-ssr-sample.eu-west-1.elasticbeanstalk.com).
+without any additional client-side Target calls.  
 
 ## Samples
 

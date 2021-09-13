@@ -137,10 +137,6 @@ If you're already a Target client, try it out in your Experience Cloud Organizat
 3. Login to your Adobe Experience Cloud account, and open the Target UI. Create a new `A/B Test` activity and indicate `http://localhost:4444` as the `Activity URL`.
 4. You can now experiment with authoring different experiences and seeing how these are delivered via Target Node.js SDK and applied by at.js using Target serverState.
 
-## Live demo
-
-A Live version of this demo is available at: http://target-nodejs-react-sample.eu-west-1.elasticbeanstalk.com/
-
 ## Usage
 
 1. Install dependencies: `npm i`
