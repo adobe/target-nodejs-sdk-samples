@@ -1,6 +1,7 @@
 {
-  "client": "adobetargetmobile",
-  "organizationId": "B8A054D958807F770A495DD6@AdobeOrg",
+  "client": "targetdataplatform",
+  "organizationId": "6FC947105BB267B70A495EE9@AdobeOrg",
+  "edgeConfigId": "34610d20-3c46-4636-b22f-eb87110dfb25:dev",
   "timeout": 10000,
-  "serverDomain": "adobetargetmobile.tt.omtrdc.net"
+  "serverDomain": "targetdataplatform.tt.omtrdc.net"
 }

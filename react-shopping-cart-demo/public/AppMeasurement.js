@@ -1,9 +1,9 @@
 //initialize AppMeasurement
-var s_account="adobetargetmobilewesteros"
+var s_account="targetdataplatform"
 var s=s_gi(s_account)
 
 /******** VISITOR ID SERVICE CONFIG - REQUIRES VisitorAPI.js ********/
-s.visitor=Visitor.getInstance("B8A054D958807F770A495DD6@AdobeOrg")
+s.visitor=Visitor.getInstance("6FC947105BB267B70A495EE9@AdobeOrg")
 
 /************************** CONFIG SECTION **************************/
 /* You may add or alter any code config here. */
@@ -32,8 +32,8 @@ s.linkTrackEvents="None"
 /* WARNING: Changing any of the below variables will cause drastic
  changes to how your visitor data is collected.  Changes should only be
  made when instructed to do so by your account manager.*/
-s.trackingServer="adobetargetmobile.sc.omtrdc.net"
-s.trackingServerSecure="adobetargetmobile.sc.omtrdc.net"
+s.trackingServer="targetdataplatform.sc.omtrdc.net"
+s.trackingServerSecure="targetdataplatform.sc.omtrdc.net"
 
 /*
  Start ActivityMap Module
