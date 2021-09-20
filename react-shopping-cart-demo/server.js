@@ -212,6 +212,7 @@ app.get("/", (req, res) => {
     },
     execute: {
       pageLoad: {},
+      mboxes: [{ name: "coin", index: 0 }],
     },
   };
 
