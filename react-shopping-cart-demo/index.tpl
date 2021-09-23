@@ -22,10 +22,12 @@
       clientCode: "${clientCode}",
       imsOrgId: "${organizationId}",
       serverDomain: "${serverDomain}",
+      pageLoadEnabled: false,
+      viewsEnabled: true,
       serverState: ${serverState} || {}
     }
   </script>
-  <script src="at.js"></script>
+  <script src="at-odd.js"></script>
 </head>
 <body>
   <div id="app"></div>

@@ -8,12 +8,19 @@ const CONFIG = require("./config.json");
 // Load the template of the HTML page returned in the response
 const TEMPLATE = fs.readFileSync(`${__dirname}/index.tpl`).toString();
 
+const useAEP = false;
+
 // Initialize the Express app
 const app = express();
 const PORT = process.env.PORT;
 
 // Enable TargetClient logging via the console logger
 const targetOptions = Object.assign({ logger: console }, CONFIG);
+
+if (!useAEP) {
+  delete targetOptions.edgeConfigId;
+}
+
 // Create the TargetClient global instance
 const targetClient = TargetClient.create(targetOptions);
 
@@ -43,14 +50,17 @@ function sendHtml(res, targetResponse) {
   // Set the serverState object, which at.js will use on the client-side to immediately apply Target offers
   const serverState = {
     request: targetResponse.request,
-    response: targetResponse.response
+    response: targetResponse.response,
   };
 
   // Build the final HTML page by replacing the Target config and state placeholders with appropriate values
   let result = TEMPLATE.replace(/\$\{organizationId\}/g, CONFIG.organizationId)
     .replace("${clientCode}", CONFIG.client)
-    .replace("${visitorState}", JSON.stringify(targetResponse.visitorState))
-    .replace("${serverState}", JSON.stringify(serverState, null, " "));
+    .replace(
+      "${visitorState}",
+      JSON.stringify(targetResponse.visitorState, null, 2)
+    )
+    .replace("${serverState}", JSON.stringify(serverState, null, 2));
 
   if (CONFIG.serverDomain) {
     result = result.replace("${serverDomain}", CONFIG.serverDomain);
@@ -90,7 +100,7 @@ function sendErrorHtml(res) {
  */
 const getResponseHeaders = () => ({
   "Content-Type": "text/html",
-  "Expires": new Date().toUTCString()
+  Expires: new Date().toUTCString(),
 });
 
 /**
@@ -124,9 +134,15 @@ function sendErrorResponse(res) {
  */
 function getTargetCookieOptions(req) {
   return {
-    visitorCookie: req.cookies[TargetClient.getVisitorCookieName(CONFIG.organizationId)],
+    visitorCookie:
+      req.cookies[
+        encodeURIComponent(
+          TargetClient.getVisitorCookieName(CONFIG.organizationId)
+        )
+      ],
     targetCookie: req.cookies[TargetClient.TargetCookieName],
-    targetLocationHintCookie: req.cookies[TargetClient.TargetLocationHintCookieName]
+    targetLocationHintCookie:
+      req.cookies[TargetClient.TargetLocationHintCookieName],
   };
 }
 
@@ -137,7 +153,7 @@ function getTargetCookieOptions(req) {
  * @param req client request object
  * @returns {Object} Target Delivery API request with the Trace token set from the original request query parameter
  */
-function setTraceToken(trace = {}, req) {
+function getTraceObject(trace = {}, req) {
   const { authorizationToken = req.query.authorization } = trace;
 
   if (!authorizationToken || typeof authorizationToken !== "string") {
@@ -155,7 +171,10 @@ function setTraceToken(trace = {}, req) {
  */
 async function processRequestWithTarget(request, req, res) {
   // Set the trace data on the Delivery API request object, if available
-  request.trace = setTraceToken(request.trace, req);
+  const trace = getTraceObject(request.trace, req);
+  if (Object.keys(trace).length > 0) {
+    request.trace = trace;
+  }
   // Build Target Node.js SDK API getOffers options
   const options = Object.assign({ request }, getTargetCookieOptions(req));
 
@@ -177,16 +196,24 @@ async function processRequestWithTarget(request, req, res) {
  * @returns {{url: *}} Target request address
  */
 function getAddress(req) {
-  return { url: req.headers.host + req.originalUrl }
+  return { url: req.headers.host + req.originalUrl };
 }
 
 // Setup the root route Express app request handler for GET requests
 app.get("/", (req, res) => {
   // Build the Delivery API View Prefetch request
+  const address = getAddress(req);
   const prefetchViewsRequest = {
+    context: {
+      address,
+    },
     prefetch: {
-      views: [{ address: getAddress(req) }]
-    }
+      views: [{}],
+    },
+    execute: {
+      pageLoad: {},
+      mboxes: [{ name: "coin", index: 0 }],
+    },
   };
 
   // Process the request by calling Target Node.js SDK API
@@ -197,7 +224,7 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}...`));
 
 // Stop the server on any app warnings
-process.on("warning", e => {
+process.on("warning", (e) => {
   console.warn("Node application warning", e);
   process.exit(-1);
 });
