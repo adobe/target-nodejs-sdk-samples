@@ -90,7 +90,7 @@ function sendErrorHtml(res) {
  */
 const getResponseHeaders = () => ({
   "Content-Type": "text/html",
-  "Expires": new Date().toUTCString()
+  Expires: new Date().toUTCString()
 });
 
 /**
@@ -124,9 +124,15 @@ function sendErrorResponse(res) {
  */
 function getTargetCookieOptions(req) {
   return {
-    visitorCookie: req.cookies[TargetClient.getVisitorCookieName(CONFIG.organizationId)],
+    visitorCookie:
+      req.cookies[
+        encodeURIComponent(
+          TargetClient.getVisitorCookieName(CONFIG.organizationId)
+        )
+      ],
     targetCookie: req.cookies[TargetClient.TargetCookieName],
-    targetLocationHintCookie: req.cookies[TargetClient.TargetLocationHintCookieName]
+    targetLocationHintCookie:
+      req.cookies[TargetClient.TargetLocationHintCookieName]
   };
 }
 
@@ -137,14 +143,20 @@ function getTargetCookieOptions(req) {
  * @param req client request object
  * @returns {Object} Target Delivery API request with the Trace token set from the original request query parameter
  */
-function setTraceToken(trace = {}, req) {
+function setTraceToken(request, req) {
+  const { trace = {} } = request;
+
+  if (Object.keys(trace).length === 0) {
+    return;
+  }
+
   const { authorizationToken = req.query.authorization } = trace;
 
   if (!authorizationToken || typeof authorizationToken !== "string") {
-    return trace;
+    return;
   }
 
-  return Object.assign({}, trace, { authorizationToken });
+  request.trace = Object.assign({}, trace, { authorizationToken });
 }
 
 /**
@@ -155,7 +167,7 @@ function setTraceToken(trace = {}, req) {
  */
 async function processRequestWithTarget(request, req, res) {
   // Set the trace data on the Delivery API request object, if available
-  request.trace = setTraceToken(request.trace, req);
+  setTraceToken(request, req);
   // Build Target Node.js SDK API getOffers options
   const options = Object.assign({ request }, getTargetCookieOptions(req));
 
@@ -177,7 +189,7 @@ async function processRequestWithTarget(request, req, res) {
  * @returns {{url: *}} Target request address
  */
 function getAddress(req) {
-  return { url: req.headers.host + req.originalUrl }
+  return { url: req.headers.host + req.originalUrl };
 }
 
 // Setup the root route Express app request handler for GET requests
