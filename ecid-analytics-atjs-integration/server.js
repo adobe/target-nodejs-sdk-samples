@@ -32,19 +32,21 @@ function saveCookie(res, cookie) {
     return;
   }
 
-  res.cookie(cookie.name, cookie.value, {maxAge: cookie.maxAge * 1000});
+  res.cookie(cookie.name, cookie.value, { maxAge: cookie.maxAge * 1000 });
 }
 
 const getResponseHeaders = () => ({
   "Content-Type": "text/html",
-  "Expires": new Date().toUTCString()
+  Expires: new Date().toUTCString()
 });
 
 function sendHtml(res, offer) {
-  const htmlResponse = TEMPLATE
-    .replace("${organizationId}", CONFIG.organizationId)
+  const htmlResponse = TEMPLATE.replace(
+    "${organizationId}",
+    CONFIG.organizationId
+  )
     .replace("${visitorState}", JSON.stringify(offer.visitorState))
-    .replace("${content}", JSON.stringify(offer, null, ' '));
+    .replace("${content}", JSON.stringify(offer, null, " "));
 
   res.status(200).send(htmlResponse);
 }
@@ -62,23 +64,37 @@ function sendErrorResponse(res, error) {
 }
 
 function getAddress(req) {
-  return { url: req.headers.host + req.originalUrl }
+  return { url: req.headers.host + req.originalUrl };
 }
 
 app.get("/", async (req, res) => {
-  const visitorCookie = req.cookies[TargetClient.getVisitorCookieName(CONFIG.organizationId)];
+  const visitorCookie =
+    req.cookies[
+      encodeURIComponent(
+        TargetClient.getVisitorCookieName(CONFIG.organizationId)
+      )
+    ];
   const targetCookie = req.cookies[TargetClient.TargetCookieName];
-  const targetLocationHintCookie = req.cookies[TargetClient.TargetLocationHintCookieName];
+  const targetLocationHintCookie =
+    req.cookies[TargetClient.TargetLocationHintCookieName];
   const request = {
     execute: {
-      mboxes: [{
-        address: getAddress(req),
-        name: "a1-serverside-ab"
-      }]
-    }};
+      mboxes: [
+        {
+          address: getAddress(req),
+          name: "a1-serverside-ab"
+        }
+      ]
+    }
+  };
 
   try {
-    const response = await targetClient.getOffers({ request, visitorCookie, targetCookie, targetLocationHintCookie });
+    const response = await targetClient.getOffers({
+      request,
+      visitorCookie,
+      targetCookie,
+      targetLocationHintCookie
+    });
     sendSuccessResponse(res, response);
   } catch (error) {
     console.error("Target:", error);
@@ -86,6 +102,6 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.listen(3000, function () {
+app.listen(3000, function() {
   console.log("Listening on port 3000 and watching!");
 });

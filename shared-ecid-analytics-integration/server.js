@@ -34,19 +34,21 @@ function saveCookie(res, cookie) {
     return;
   }
 
-  res.cookie(cookie.name, cookie.value, {maxAge: cookie.maxAge * 1000});
+  res.cookie(cookie.name, cookie.value, { maxAge: cookie.maxAge * 1000 });
 }
 
 const getResponseHeaders = () => ({
   "Content-Type": "text/html",
-  "Expires": new Date().toUTCString()
+  Expires: new Date().toUTCString()
 });
 
 function sendHtml(res, offer) {
-  const htmlResponse = TEMPLATE
-    .replace("${organizationId}", CONFIG.organizationId)
+  const htmlResponse = TEMPLATE.replace(
+    "${organizationId}",
+    CONFIG.organizationId
+  )
     .replace("${visitorState}", JSON.stringify(offer.visitorState))
-    .replace("${content}", JSON.stringify(offer, null, ' '));
+    .replace("${content}", JSON.stringify(offer, null, " "));
 
   res.status(200).send(htmlResponse);
 }
@@ -63,31 +65,42 @@ function sendErrorResponse(res, error) {
 }
 
 function getAddress(req) {
-  return { url: req.headers.host + req.originalUrl }
+  return { url: req.headers.host + req.originalUrl };
 }
 
 app.get("/", async (req, res) => {
-  const visitorCookie = req.cookies[TargetClient.getVisitorCookieName(CONFIG.organizationId)];
+  const visitorCookie =
+    req.cookies[
+      encodeURIComponent(
+        TargetClient.getVisitorCookieName(CONFIG.organizationId)
+      )
+    ];
   const visitor = new Visitor(CONFIG.organizationId, visitorCookie);
   const sessionId = uuidv4();
 
   const targetCookie = req.cookies[TargetClient.TargetCookieName];
   const firstRequest = {
     execute: {
-      mboxes: [{
-        address: getAddress(req),
-        name: "a1-serverside-ab"
-      }]
-    }};
+      mboxes: [
+        {
+          address: getAddress(req),
+          name: "a1-serverside-ab"
+        }
+      ]
+    }
+  };
   const secondRequest = {
     execute: {
-      mboxes: [{
-        address: getAddress(req),
-        name: "a1-serverside-ab",
-      }, {
-        address: getAddress(req),
-        name: "a1-serverside-xt",
-      }]
+      mboxes: [
+        {
+          address: getAddress(req),
+          name: "a1-serverside-ab"
+        },
+        {
+          address: getAddress(req),
+          name: "a1-serverside-xt"
+        }
+      ]
     }
   };
 
@@ -121,6 +134,6 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.listen(3000, function () {
+app.listen(3000, function() {
   console.log("Listening on port 3000 and watching!");
 });
