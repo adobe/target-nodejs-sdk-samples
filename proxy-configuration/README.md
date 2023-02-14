@@ -4,7 +4,7 @@
 
 It is possible to configure a proxy for the Node SDK's HTTP requests. This is possible by overriding the `fetch` API used by the SDK during initialization.
 
-This sample contains three different code snippets that demonstrate how to configure the SDK with a proxy, depending on which node version the SDK runs on:  
+This sample contains three different code snippets that demonstrate how to configure the SDK with a proxy, depending on which Node version the SDK runs on:  
 
 - [Node 18.2+](proxy-sample-node-18.js) (`undici.fetch` is the default `fetch`)
 - [Node 16.8+](proxy-sample-node-16.js) (`undici.fetch` needs to be imported)
