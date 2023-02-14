@@ -1,0 +1,29 @@
+{
+  "name": "proxy-configuration",
+  "version": "1.0.0",
+  "description": "Adobe Target Node.js SDK, proxy configuration samples",
+  "scripts": {
+    "start": "node example-proxy-server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:adobe/target-nodejs-sdk-samples.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "Server",
+    "API",
+    "Adobe",
+    "Target",
+    "Proxy"
+  ],
+  "author": "Adobe Systems Inc.",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@adobe/target-nodejs-sdk": "^2.4.2",
+    "@mutagen-d/node-proxy-server": "^1.0.2",
+    "node-fetch": "^2.6.9",
+    "proxy-agent": "^5.0.0",
+    "undici": "^5.18.0"
+  }
+}
